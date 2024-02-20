@@ -1,0 +1,46 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Ajouter un client{% endblock %}
+
+{% block body %}
+ <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow" style="background-color: white;">
+        <div class="card-body">
+          <h1 class="card-title text-center text-success">Ajouter client</h1>
+  
+  {{ form_start(form) }}
+          <div class="mb-3">
+    {{ form_label(form.nom, 'Nom') }}
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+   <div class="text-danger">{{ form_errors(form.nom) }}</div>
+  </div>
+          <div class="mb-3">
+    {{ form_label(form.prenom, 'Prénom') }}
+    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+     <div class="text-danger">{{ form_errors(form.prenom) }}</div>
+  </div>
+          <div class="mb-3">
+    {{ form_label(form.email, 'Email') }}
+    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.email) }}</div>
+  </div>
+          <div class="mb-3">
+    {{ form_label(form.motdepasse, 'Mot de passe') }}
+    {{ form_widget(form.motdepasse, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.motdepasse) }}</div>
+  </div>
+          <div class="mb-3">
+    {{ form_label(form.telephone, 'Téléphone') }}
+    {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.telephone) }}</div>
+  </div>
+          <button type="submit" class="btn btn-success w-100">Ajouter</button>
+   {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
