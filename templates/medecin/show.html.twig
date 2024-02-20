@@ -1,0 +1,67 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Medecin{% endblock %}
+
+{% block body %}
+    <h1>Medecin</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medecin.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ medecin.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ medecin.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Specialite</th>
+                <td>{{ medecin.specialite }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ medecin.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Consultations</h1>
+    <table class="table">
+        <tbody>
+        {% if medecin.consultations is not empty %}
+            {% for cons in medecin.consultations %}
+            <tr>
+                <th>Consultation</th>
+                <td>{{ cons.id }}</td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ cons.Client.prenom }} {{ cons.Client.nom }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ cons.date | date('Y-m-d H:i:s')}}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ cons.prix }}</td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+            
+        </tbody>
+    </table>
+
+
+
+    <a href="{{ path('app_medecin_index') }}">back to list</a>
+
+    <a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}">edit</a>
+
+    {{ include('medecin/_delete_form.html.twig') }}
+{% endblock %}
