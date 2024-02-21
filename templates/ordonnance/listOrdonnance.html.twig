@@ -1,0 +1,69 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}List Ordonnances{% endblock %}
+
+{% block body %}
+<!-- Flash messages banner -->
+<div class="alert alert-dismissible fade show alert-success" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% for flashType, flashMessages in app.flashes %}
+        {% for flashMessage in flashMessages %}
+            {{ flashMessage }}
+        {% endfor %}
+    {% endfor %}
+</div>
+<!-- End Flash messages banner -->
+
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 offset-lg-2"> <!-- Increase col size and offset -->
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4 text-success">Liste des Ordonnances</h5>
+                        <!-- Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table table-striped datatable" style="width: 100%;"> <!-- Set table width to 100% -->
+                                <thead>
+                                    <tr>
+                                        <th class="text-success">ID</th>
+                                        <th class="text-success">Nom du Malade</th>
+                                        <th class="text-success">Prénom du Malade</th>
+                                        <th class="text-success">Médecin Traitant</th>
+                                        <th class="text-success">Médicaments</th>
+                                        <th class="text-success">Date</th>
+                                        <th class="text-success">État</th>
+                                        <th class="text-success">Pharmacie</th>
+                                        <th class="text-success">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ordonnance in ordonnances %}
+                                    <tr>
+                                        <td class="text-black">{{ ordonnance.id }}</td>
+                                        <td class="text-black">{{ ordonnance.nomMalade }}</td>
+                                        <td class="text-black">{{ ordonnance.prenomMalade }}</td>
+                                        <td class="text-black">{{ ordonnance.medecinTraitant }}</td>
+                                        <td class="text-black">{{ ordonnance.medicaments }}</td>
+                                        <td class="text-black">{{ ordonnance.date|date('Y-m-d H:i:s') }}</td>
+                                        <td class="text-black">{{ ordonnance.etat }}</td>
+                                        <td class="text-black">{{ ordonnance.pharmacie.nom }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Actions">
+                                                <a href="{{ path('ordonnance_edit', {id: ordonnance.id}) }}" class="btn btn-success" style="margin-right: 10px; padding-left: 15px; padding-right: 15px; border-radius: 20px;">Modifier</a>
+                                                <a href="{{ path('ordonnance_delete', {id: ordonnance.id}) }}" class="btn btn-danger" style="padding-left: 15px; padding-right: 15px; border-radius: 20px;">Supprimer</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Ajouter une ordonnance{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow" style="background-color: white;">
+        <div class="card-body">
+          <h1 class="card-title text-center text-success">Ajouter une ordonnance</h1>
+          {{ form_start(form) }}
+          <div class="mb-3">
+            {{ form_label(form.nomMalade, 'Nom du malade', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nomMalade, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.nomMalade) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.prenomMalade, 'Prénom du malade', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prenomMalade, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.prenomMalade) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.medecinTraitant, 'Médecin traitant', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.medecinTraitant, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.medecinTraitant) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.medicaments, 'Médicaments', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.medicaments, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.medicaments) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.date, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.date) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.etat, 'État', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.etat) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.pharmacie, 'Pharmacie', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.pharmacie, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.pharmacie) }}</div>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Ajouter</button>
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

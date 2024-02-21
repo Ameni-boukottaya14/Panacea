@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+{% block headerinner %}
+<!-- Header Inner -->
+<div class="header-inner">
+    <div class="container">
+        <div class="inner">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-12">
+                    <!-- Start Logo -->
+                    <div class="logo">
+                        <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                    </div>
+                    <!-- End Logo -->
+                    <!-- Mobile Nav -->
+                    <div class="mobile-nav"></div>
+                    <!-- End Mobile Nav -->
+                </div>
+                <div class="col-lg-9 col-md-9 col-12">
+                    <!-- Main Menu and Buttons -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-9 col-12">
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu">
+                                        <li><a href="{{ path('front') }}">Accueil</a></li>
+                                        <li><a href="#">Médecins</a></li>
+                                        <li><a href="#">Hôpitaux</a></li>
+                                        <li><a href="#">Laboratoires</a></li>
+                                        <li class="active"><a href="{{ path('pharmacie_front') }}">Pharmacie</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ Fin Menu principal -->
+                        </div>
+                        <div class="col-lg-1 col-6">
+                            <div class="get-quote">
+                                <a href="#" class="btn">Connexion</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Main Menu and Buttons -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table des ordonnances -->
+<section class="ordonnance-table section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Vos ordonnances</h2>
+                    <img src="{{ asset('img/section-img.png') }}" alt="#">
+                    <p>Votre bien-être est notre priorité, voici vos ordonnances.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for ordonnance in ordonnances %}
+            <!-- Ordonnance Unique -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ordonnance-card" style="border: 2px solid #5DADE2;margin-bottom: 20px;">
+                   <!-- En-tête de l'ordonnance -->
+<div class="card-header" style="background-color: #5DADE2; color: white; text-align: center;">
+    <h4 class="title">{{ ordonnance.getNomMalade() ~ ' ' ~ ordonnance.getPrenomMalade() }}</h4>
+</div>
+
+                    <!-- Détails de l'ordonnance -->
+                    <div class="card-body">
+                        <p class="attribute-label" style="font-size: 18px;"><strong>Date :</strong></p>
+                        <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getDate()|date('d/m/Y') }}</p>
+                        <p class="attribute-label" style="font-size: 18px;"><strong>État :</strong></p>
+                        <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getEtat() }}</p>
+                        <p class="attribute-label" style="font-size: 18px;"><strong>Pharmacie :</strong></p>
+                        <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getPharmacie().getNom() }}</p>
+                        <p class="attribute-label" style="font-size: 18px;"><strong>Médicaments :</strong></p>
+                        <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getMedicaments() }}</p>
+                        
+                        <p class="attribute-label" style="font-size: 18px;"><strong>Médecin traitant :</strong></p>
+                        <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getMedecinTraitant() }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Ordonnance Unique -->
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Fin Table des ordonnances -->
+
+{% block calltoaction %}    
+      
+        {% endblock %}
+
+
+<!-- End Header Inner -->
+
+
+{% endblock %}
+{% block continue %}
+
+{% endblock %}
+
+{% block dispositives %}
+{% endblock %}
+
+{% block newsletter %}
+{% endblock %}
+
+{% block Appointment %}
+{% endblock %}
+{% block funfacts %}
+{% endblock %}
+{% block whychoose %}
+{% endblock %}
+{% block feautes %}
+{% endblock %}
+{% block nhebnahih %}
+{% endblock %}

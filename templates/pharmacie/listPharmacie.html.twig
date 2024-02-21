@@ -1,0 +1,52 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}List Offres{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4 text-success">Datatables</h5>
+                        <!-- Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table table-striped datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-success">ID</th>
+                                        <th class="text-success">Nom</th>
+                                        <th class="text-success">Adress</th>
+                                        <th class="text-success">Numéro de téléphone</th>
+                                        <th class="text-success">Adresse email</th>
+                                        <th class="text-success">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for pharmacie in pharmacies %}
+                                    <tr>
+                                        <td class="text-black">{{ pharmacie.id }}</td>
+                                        <td class="text-black">{{ pharmacie.nom|upper }}</td>
+                                        <td class="text-black">{{ pharmacie.adress }}</td>
+                                        <td class="text-black">{{ pharmacie.numTell }}</td>
+                                        <td class="text-black">{{ pharmacie.adressEmail }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Actions">
+                                                <a href="{{ path('pharmacie_edit', {id: pharmacie.id}) }}" class="btn btn-success" style="margin-right: 10px; padding-left: 15px; padding-right: 15px; border-radius: 20px;">Modifier</a>
+                                                <a href="{{ path('pharmacie_delete', {id: pharmacie.id}) }}" class="btn btn-danger" style="padding-left: 15px; padding-right: 15px; border-radius: 20px;">Supprimer</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
