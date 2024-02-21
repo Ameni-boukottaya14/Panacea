@@ -1,0 +1,53 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}List Offres{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 offset-lg-2">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4 text-success">Datatables</h5>
+                        <!-- Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table table-striped datatable">
+                                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Mot de passe</th>
+                    <th>Telephone</th>
+                    <th>Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for client in clients %}
+                    <tr>
+                        <td>{{ client.id }}</td>
+                        <td>{{ client.nom|upper }}</td>
+                        <td>{{ client.prenom }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.motdepasse }}</td>
+                        <td>{{ client.telephone }}</td>
+                        <td>
+                            <a href="{{ path('client_edit', {id: client.id}) }}" class="btn btn-success">Edit</a>
+                            <a href="{{ path('client_delete', {id: client.id}) }}" class="btn btn-danger">Delete</a>
+                       </td>
+                    </tr>
+                   {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}List Offres{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4 text-success">Datatables</h5>
+                        <!-- Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table table-striped datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-success">ID</th>
+                                        <th class="text-success">Nom</th>
+                                        <th class="text-success">Description</th>
+                                        <th class="text-success">Prix</th>
+                                        <th class="text-success">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for offre in offres %}
+                                    <tr>
+                                        <td class="text-black">{{ offre.id }}</td>
+                                        <td class="text-black">{{ offre.nomO|upper }}</td>
+                                        <td class="text-black">{{ offre.descriptionO }}</td>
+                                        <td class="text-black">{{ offre.prixO }}</td>
+                                        <td>
+                                            <button class="btn btn-success"><a href="{{ path('offre_edit', {id: offre.id}) }}" class="text-white">Edit</a></button>
+                                            <button class="btn btn-danger"><a href="{{ path('offre_delete', {id: offre.id}) }}" class="text-white">Delete</a></button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

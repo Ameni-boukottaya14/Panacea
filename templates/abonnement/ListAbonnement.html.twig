@@ -1,0 +1,52 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}List Abonnements{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4 text-success">Datatables</h5>
+                        <!-- Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table table-striped datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-success">ID</th>
+                                        <th class="text-success">Client ID</th>
+                                        <th class="text-success">DateC</th>
+                                        <th class="text-success">DateE</th>
+                                        <th class="text-success">Etendre</th>
+                                        <th class="text-success">ID Offre</th>
+                                        <th class="text-success">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for abonnement in abonnements %}
+                                    <tr>
+                                        <td class="text-black">{{ abonnement.id }}</td>
+                                        <td class="text-black">{{ abonnement.clientId }}</td>
+                                        <td class="text-black">{{ abonnement.dateC|date('Y-m-d H:i:s') }}</td>
+                                        <td class="text-black">{{ abonnement.dateE|date('Y-m-d H:i:s') }}</td>
+                                        <td class="text-black">{{ abonnement.etendre }}</td>
+                                        <td class="text-black">{{ abonnement.idOffre }}</td>
+                                        <td>
+                                            <button class="btn btn-success"><a href="{{ path('abonnement_edit', {id: abonnement.id}) }}" class="text-white">Edit</a></button>
+                                            <button class="btn btn-danger"><a href="{{ path('abonnement_delete', {id: abonnement.id}) }}" class="text-white">Delete</a></button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
