@@ -1,0 +1,8 @@
+{{ form_start(form,{'attr' : {'class' : 'form', 'novalidate' : 'novalidate'}}) }}
+    <div class="form-group">
+    {{ form_label(form.date,"Date de la consultation") }}
+    {{ form_widget(form.date) }}
+    {{ form_errors(form.date) }}
+    </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

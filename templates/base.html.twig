@@ -106,17 +106,19 @@
 							</div>
 							<div class="col-lg-7 col-md-9 col-12">
 								<!-- Menu principal -->
+{% block nav %}
 <div class="main-menu">
     <nav class="navigation">
         <ul class="nav menu">
             <li class="active"><a href="index.html">Accueil</a></li>
-            <li><a href="#">Médecins</a></li>
+            <li><a href="{{ path('app_medecin_list') }}">Médecins</a></li>
             <li><a href="#">Hôpitaux</a></li>
             <li><a href="#">Laboratoires</a></li>
             <li><a href="#">Pharmacies</a></li>
         </ul>
     </nav>
 </div>
+{% endblock %}
 <!--/ Fin Menu principal -->
 </div>
 <div class="col-lg-2 col-12">
@@ -132,6 +134,7 @@
 <!-- Fin Zone d'en-tête -->
 
 <!-- Zone de diapositives -->
+{% block body %}
 <section class="slider">
     <div class="hero-slider">
         <!-- Début Diapositive Hôpital -->
@@ -913,7 +916,7 @@
 			</div>
 		</section>
 		<!-- /End Newsletter Area -->
-		
+		{% endblock %}
 		<!-- Footer Area -->
 		<footer id="footer" class="footer ">
 			<!-- Footer Top -->

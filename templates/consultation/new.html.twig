@@ -1,11 +1,37 @@
-{% extends 'back.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}New Consultation{% endblock %}
+{% block title %}Panacea | Medecins{% endblock %}
+
+{% block nav %}
+<div class="main-menu">
+    <nav class="navigation">
+        <ul class="nav menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li class="active"><a href="{{ path('app_medecin_list') }}">Médecins</a></li>
+            <li><a href="#">Hôpitaux</a></li>
+            <li><a href="#">Laboratoires</a></li>
+            <li><a href="#">Pharmacies</a></li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Consultation</h1>
+<section class="ordonnance-table section">
+    <div class="container">
+        <div class="row">
+            <!-- Ordonnance Unique -->
+            <div class="appointment" style="border: 2px solid #5DADE2;margin-bottom: 20px;">
+                <!-- En-tête de l'ordonnance -->
+                    <h4 class="title">Nouvelle consultation</h4>
+                <!-- Détails de l'ordonnance -->
+                    {{ include('consultation/_form1.html.twig') }}
+            </div>
+            <!-- Fin Ordonnance Unique -->
+        </div>
+    </div>
+</section>
+<!-- Fin Table des ordonnances -->
 
-    {{ include('consultation/_form.html.twig') }}
-
-    <a href="{{ path('app_consultation_index') }}">back to list</a>
 {% endblock %}
+

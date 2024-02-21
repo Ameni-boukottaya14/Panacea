@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\Consultation;
+use App\Entity\Medecin;
 use App\Form\ConsultationType;
 use App\Repository\ConsultationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,18 +24,31 @@ class ConsultationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_consultation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/list/{id}', name: 'app_consultation_list', methods: ['GET'])]
+    public function list(Client $client, ConsultationRepository $consultationRepository): Response
+    {
+        return $this->render('consultation/frontindex.html.twig', [
+            'consultations' => $consultationRepository->findBy(['Client' => $client]),
+        ]);
+    }
+
+    #[Route('/new/{id}', name: 'app_consultation_new', methods: ['GET', 'POST'])]
+    public function new(Medecin $medecin, Request $request, EntityManagerInterface $entityManager): Response
     {
         $consultation = new Consultation();
+        $id_client = 1;
         $form = $this->createForm(ConsultationType::class, $consultation);
         $form->handleRequest($request);
+        $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $id_client]);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $consultation->setPrix(70);
+            $consultation->setMedecin($medecin);
+            $consultation->setClient($client);
             $entityManager->persist($consultation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_medecin_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('consultation/new.html.twig', [

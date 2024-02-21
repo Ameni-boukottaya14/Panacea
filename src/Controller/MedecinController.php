@@ -22,6 +22,14 @@ class MedecinController extends AbstractController
         ]);
     }
 
+    #[Route('/list', name: 'app_medecin_list', methods: ['GET'])]
+    public function list(MedecinRepository $medecinRepository): Response
+    {
+        return $this->render('medecin/frontindex.html.twig', [
+            'medecins' => $medecinRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_medecin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
