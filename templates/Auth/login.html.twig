@@ -1,0 +1,27 @@
+{# Auth/login.html.twig #}
+
+{% block body %}
+    <div class="c">
+        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate', 'id': 'form'}}) }}
+
+        <div class="form-group">
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email', 'required': 'required'} }) }}
+            {{ form_errors(form.email) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.motdepasse, { 'attr': {'class': 'form-control', 'placeholder': 'Password', 'required': 'required'} }) }}
+            {{ form_errors(form.motdepasse) }}
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+        </div>
+
+        {% if app.session.flashbag.has('error') %}
+            <div class="alert alert-danger">
+                {{ app.session.flashbag.get('error')[0] }}
+            </div>
+        {% endif %}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

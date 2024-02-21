@@ -45,9 +45,10 @@
 
     </head>
 	{% endblock %}
+
 	{% block body %}
     <body>
-	
+	{% block Preloader %}
 		<!-- Preloader -->
         <div class="preloader">
             <div class="loader">
@@ -63,7 +64,8 @@
             </div>
         </div>
         <!-- End Preloader -->
-
+		{% endblock %}
+		
 		<!-- Header Area -->
 		<header class="header" >
 			<!-- Topbar -->
@@ -85,16 +87,6 @@
                 <ul class="top-contact">
                     <li><i class="fa fa-phone"></i>+216 73333333</li>
                     <li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">email</a></li>
-					<li> 
-					 <div class="button">
-                        <button type="submit" href="#" class="btn">Connexion</button>
-                    </div>
-					</li>
-					<li>
- 				<div class="button">
-   				 <a href="{{ path('client_signup') }}" class="btn">S'inscrire</a>
-				</div>
-					</li>
                 </ul>
                 <!-- End Top Contact -->
             </div>
@@ -103,48 +95,65 @@
 </div>
 
 			<!-- End Topbar -->
-			<!-- Header Inner -->
-			<div class="header-inner">
-				<div class="container">
-					<div class="inner">
-						<div class="row">
-							<div class="col-lg-3 col-md-3 col-12">
-								<!-- Start Logo -->
-								<div class="logo">
-									<a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
-								</div>
-								<!-- End Logo -->
-								<!-- Mobile Nav -->
-								<div class="mobile-nav"></div>
-								<!-- End Mobile Nav -->
-							</div>
-							<div class="col-lg-7 col-md-9 col-12">
-								<!-- Menu principal -->
-<div class="main-menu">
-    <nav class="navigation">
-        <ul class="nav menu">
-            <li class="active"><a href="index.html">Accueil</a></li>
-            <li><a href="#">Médecins</a></li>
-            <li><a href="#">Hôpitaux</a></li>
-            <li><a href="#">Laboratoires</a></li>
-            <li><a href="#">Pharmacies</a></li>
-        </ul>
-    </nav>
-</div>
-<!--/ Fin Menu principal -->
-</div>
-<div class="col-lg-2 col-12">
-    <div class="get-quote">
-        <a href="appointment.html" class="btn">Services</a>
+{% block headerinner %}
+<!-- Header Inner -->
+<div class="header-inner">
+    <div class="container">
+        <div class="inner">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-12">
+                    <!-- Start Logo -->
+                    <div class="logo">
+                        <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                    </div>
+                    <!-- End Logo -->
+                    <!-- Mobile Nav -->
+                    <div class="mobile-nav"></div>
+                    <!-- End Mobile Nav -->
+                </div>
+                <div class="col-lg-9 col-md-9 col-12">
+                    <!-- Main Menu and Buttons -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-9 col-12">
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu">
+                                        <li class="active"><a href="index.html">Accueil</a></li>
+                                        <li><a href="#">Médecins</a></li>
+                                        <li><a href="#">Hôpitaux</a></li>
+                                        <li><a href="#">Laboratoires</a></li>
+                                        <li><a href="#">Pharmacies</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ Fin Menu principal -->
+                        </div>
+                        <div class="col-lg-1 col-6">
+                            <div class="get-quote">
+                                <a href="{{ path('app_register') }}" class="btn">Connexion</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-6">
+                            <div class="get-quote" style="margin-left: 70px;"> <!-- Added margin -->
+                                <a href="{{ path('app_register') }}" class="btn">S'inscrire</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Main Menu and Buttons -->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-</div>
-</div>
-<!--/ Fin En-tête interne -->
+<!-- End Header Inner -->
+{% endblock %}
 </header>
-<!-- Fin Zone d'en-tête -->
 
+<!-- Fin Zone d'en-tête -->
+{% block continue %}
+<!-- signup form  -->
+{% endblock %}
+{% block dispositives %}
 <!-- Zone de diapositives -->
 <section class="slider">
     <div class="hero-slider">
@@ -286,7 +295,8 @@
 					</div>
 				</section>
 				<!-- Fin de la section des horaires -->
-				
+{% endblock %}
+{% block feautes %}
 				<!-- Start Feautes -->
 		<section class="Feautes section">
 			<div class="container">
@@ -337,7 +347,8 @@
 			</div>
 		</section>
 		<!--/ End Feautes -->
-		
+{% endblock %}	
+{% block funfacts %}
 		<!-- Start Fun-facts -->
 		<div id="fun-facts" class="fun-facts section overlay">
 			<div class="container">
@@ -390,7 +401,8 @@
 			</div>
 		</div>
 		<!--/ End Fun-facts -->
-		
+	{% endblock %}
+{% block whychoose %}		
 		<!-- Start Why choose -->
 		<section class="why-choose section" >
 			<div class="container">
@@ -451,7 +463,9 @@
 			</div>
 		</section>
 		<!--/ End Why choose -->
-		
+{% endblock %}
+
+{% block calltoaction %}	
 		<!-- Start Call to action -->
 		<section class="call-action overlay" data-stellar-background-ratio="0.5">
 			<div class="container">
@@ -470,7 +484,8 @@
 			</div>
 		</section>
 		<!--/ End Call to action -->
-		
+		{% endblock %}
+
 		<!-- Start portfolio -->
 		<!--/ End portfolio -->
 		
@@ -719,7 +734,7 @@
 		
 		<!-- Start clients -->
 		<!--/End clients -->
-		
+{% block Appointment %}		
 		<!-- Start Appointment -->
 		<section class="appointment">
 			<div class="container">
@@ -810,7 +825,9 @@
 			</div>
 		</section>
 		<!-- End Appointment -->
-		
+	{% endblock %}
+{% block newsletter %}
+	
 		<!-- Start Newsletter Area -->
 		<section class="newsletter section">
 			<div class="container">
@@ -838,7 +855,9 @@
 			</div>
 		</section>
 		<!-- /End Newsletter Area -->
-		
+	{% endblock %}
+{% block footer %}
+	
 		<!-- Footer Area -->
 		<footer id="footer" class="footer ">
 			<!-- Footer Top -->
@@ -885,32 +904,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="single-footer">
-								<h2>Open Hours</h2>
-								<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
-								<ul class="time-sidual">
-									<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
-									<li class="day">Saturday <span>9.00-18.30</span></li>
-									<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-12">
-							<div class="single-footer">
-								<h2>Newsletter</h2>
-								<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Your email address'" required="" type="email">
-									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
-								</form>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
 			<!--/ End Footer Top -->
+
 			<!-- Copyright -->
 			<div class="copyright">
 				<div class="container">
@@ -926,7 +925,8 @@
 			<!--/ End Copyright -->
 		</footer>
 		<!--/ End Footer Area -->
-		
+	{% endblock %}
+	
 	<!-- jquery Min JS -->
 	{% block js %}
 <script src="{{ asset('js/jquery.min.js') }}"></script>

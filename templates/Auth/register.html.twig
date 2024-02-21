@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+{% block headerinner %}
+<!-- Header Inner -->
+<div class="header-inner">
+    <div class="container">
+        <div class="inner">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-12">
+                    <!-- Start Logo -->
+                    <div class="logo">
+                        <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                    </div>
+                    <!-- End Logo -->
+                    <!-- Mobile Nav -->
+                    <div class="mobile-nav"></div>
+                    <!-- End Mobile Nav -->
+                </div>
+                <div class="col-lg-9 col-md-9 col-12">
+                    <!-- Main Menu and Buttons -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-9 col-12">
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu">
+                                        <li class="active"><a href="index.html">Accueil</a></li>
+                                        <li><a href="#">Médecins</a></li>
+                                        <li><a href="#">Hôpitaux</a></li>
+                                        <li><a href="#">Laboratoires</a></li>
+                                        <li><a href="#">Pharmacies</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ Fin Menu principal -->
+                        </div>
+                        <div class="col-lg-1 col-6">
+                            <div class="get-quote">
+                                <a href="{{ path('app_register') }}" class="btn">Connexion</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Main Menu and Buttons -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header Inner -->
+{% endblock %}
+{% block continue %}
+<style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, textarea, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      position: absolute;
+      margin: 0;
+      font-size: 32px;
+      color: #fff;
+      z-index: 2;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 10px 0 #cc0052; 
+      }
+      .banner {
+      position: relative;
+      height: 210px;
+      background-image: url("/uploads/media/default/0001/01/f1cf9a9068f4bfbdbd9758c45db79203579a3561.jpeg");      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      }
+      .banner::after {
+      content: "";
+      background-color: rgba(0, 0, 0, 0.4); 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      }
+      input, textarea {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      input {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+      textarea {
+      width: calc(100% - 12px);
+      padding: 5px;
+      }
+      .item:hover p, input:hover::placeholder {
+      color: #cc0052;
+      }
+      .item input:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 6px 0 #cc0052;
+      color: #cc0052;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background: #cc0052;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #ff0066;
+      }
+      .c{
+        width : 70%;
+        height:120%;
+        display: block;
+  margin-left: auto;
+  padding-top: 41px;
+  margin-right: auto;}
+      @media (min-width: 568px) {
+      .name-item, .contact-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      }
+      .contact-item .item {
+      width: calc(50% - 8px);
+      }
+      .name-item input {
+      width: calc(50% - 20px);
+      }
+      .contact-item input {
+      width: calc(100% - 12px);
+      }
+
+      }
+    </style>
+    
+    <div class="c">
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    {# {{ form_widget(form) }} #}
+   
+    {{ form_row(form.nom, {
+    label: 'Nom du client',
+    attr: {
+        placeholder: 'nom'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.prenom, {
+    label: 'prenom',
+    attr: {
+        placeholder: 'prenom'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+
+{{ form_row(form.email, {
+    label: 'email',
+    attr: {
+        placeholder: 'email'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.motdepasse, {
+    label: 'motdepasse',
+    attr: {
+        placeholder: 'motdepasse'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.telephone, {
+    label: 'telephone',
+    attr: {
+        placeholder: 'telephone'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+
+<div>
+
+    <button class="btn btn-secondary display-4">{{ button_label|default('inscrire') }}</button>
+</div>
+{{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block dispositives %}
+{% endblock %}
+
+{% block newsletter %}
+{% endblock %}
+
+{% block Appointment %}
+{% endblock %}

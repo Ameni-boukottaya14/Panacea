@@ -35,8 +35,8 @@
                         <td>{{ client.motdepasse }}</td>
                         <td>{{ client.telephone }}</td>
                         <td>
-                            <a href="{{ path('client_new', {id: client.id}) }}" class="btn btn-success">Edit</a>
-                            <a href="{{ path('client_edit', {id: client.id}) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ path('client_edit', {id: client.id}) }}" class="btn btn-success">Edit</a>
+                            <a href="{{ path('client_delete', {id: client.id}) }}" class="btn btn-danger">Delete</a>
                        </td>
                     </tr>
                    {% endfor %}

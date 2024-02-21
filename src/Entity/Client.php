@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+class Client implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,9 +23,9 @@ class Client
     #[ORM\Column(length: 50)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $motdepasse = null;
-    
+
     #[ORM\Column]
     private ?int $telephone = null;
 
@@ -39,7 +39,7 @@ class Client
         return $this->nom;
     }
 
-    public function setNom(?string $nom): static
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -51,7 +51,7 @@ class Client
         return $this->prenom;
     }
 
-    public function setPrenom(?string $prenom): static
+    public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
 
@@ -63,7 +63,7 @@ class Client
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -75,23 +75,52 @@ class Client
         return $this->motdepasse;
     }
 
-    public function setMotDePasse(string $motdepasse): static
+    public function setMotDePasse(string $motdepasse): self
     {
         $this->motdepasse = $motdepasse;
 
         return $this;
     }
-    public function getTelephone(): ?string
+
+    public function getTelephone(): ?int
     {
         return $this->telephone;
     }
 
-    public function setTelephone(string $telephone): static
+    public function setTelephone(int $telephone): self
     {
         $this->telephone = $telephone;
 
         return $this;
     }
 
+    // Implementing methods from UserInterface
 
+    public function getUsername(): ?string
+    {
+        return $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        // You can define user roles here if needed
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->motdepasse;
+    }
+
+    public function getSalt()
+    {
+        // No need for salt with modern password encoders
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        // Implement if you store sensitive data that needs to be cleared
+    }
 }
+
