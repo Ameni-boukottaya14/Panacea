@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block headerinner %}
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo">
+<a href="index.html"><img src="{{ asset('img/PanaceaLogo.png') }}"></a>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-12">
+                        <!-- Main Menu and Buttons -->
+                        <div class="row align-items-center">
+                            <div class="col-lg-9 col-12">
+                                <div class="main-menu">
+                                    <nav class="navigation">
+                                        <ul class="nav menu">
+                                            <li class="active"><a href="index.html">Accueil</a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#">Hôpitaux</a></li>
+                                            <li><a href="#">Laboratoires</a></li>
+                                            <li><a href="#">Pharmacies</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!--/ Fin Menu principal -->
+                            </div>
+                            <div class="col-lg-1 col-6">
+                                <div class="get-quote">
+                                <ul>
+                                 <li><a style="font-size: 20px; color: #3498db;">{{user.nom}}</a></li>
+                                     <li><a href="{{ path('app_logout') }}" class="btn">Deconnexion</a></li>
+                                                               </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Main Menu and Buttons -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Inner -->
+{% endblock %}
+{% block continue %}
+
+{% endblock %}
+{% block dispositives %}
+{% endblock %}
+
+{% block newsletter %}
+{% endblock %}
+
+{% block Appointment %}
+{% endblock %}

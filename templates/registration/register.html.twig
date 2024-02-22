@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{% block headerinner %}
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-12">
+                        <!-- Main Menu and Buttons -->
+                        <div class="row align-items-center">
+                            <div class="col-lg-9 col-12">
+                                <div class="main-menu">
+                                    <nav class="navigation">
+                                        <ul class="nav menu">
+                                            <li class="active"><a href="index.html">Accueil</a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#">Hôpitaux</a></li>
+                                            <li><a href="#">Laboratoires</a></li>
+                                            <li><a href="#">Pharmacies</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!--/ Fin Menu principal -->
+                            </div>
+                            <div class="col-lg-1 col-6">
+                                <div class="get-quote">
+                                    <ul>
+                                        <li><a href="{{ path('app_login') }}" class="btn">Connexion</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Main Menu and Buttons -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Inner -->
+{% endblock %}
+
+{% block continue %}
+    <style>
+        /* CSS styles here */
+        html, body {
+            height: 100%;
+        }
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+        .form-signin {
+            width: 450px; /* Adjust width as needed */
+            padding: 10px;
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 0 10px 0 #3498db;
+        }
+        .form-signin .h1 {
+            color: #3498db; /* Change color to blue */
+            text-align: center;
+            margin-bottom: 20px; /* Adjust margin as needed */
+        }
+        .form-signin .form-group {
+            margin-bottom: 15px;
+        }
+        .form-signin label {
+            margin-bottom: 5px;
+        }
+        .form-signin input,
+        .form-signin select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-signin button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3498db; /* Change color to blue */
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-signin button:hover {
+            background: #3498db; /* Darken color on hover */
+        }
+    </style>
+
+    <div class="testbox">
+        <form method="post" class="form-signin">
+            {{ form_row(form._token) }} {# Add this line to include the CSRF token field #}
+            <h1 class="h1">Register</h1>
+            <div class="form-group">
+                {{ form_label(form.nom, 'Nom') }}
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.nom) }}</div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.prenom, 'Prénom') }}
+                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.prenom) }}</div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email, 'Email') }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.email) }}</div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password.first, 'Mot de passe') }}
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.password.first) }}</div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password.second, 'Confirmer mot de passe') }}
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.password.second) }}</div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.telephone, 'Téléphone') }}
+                {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.telephone) }}</div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.role, 'Role') }}
+                {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+                <div class="text-danger">{{ form_errors(form.role) }}</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block dispositives %}
+    <!-- Your existing block content here -->
+{% endblock %}
+
+{% block newsletter %}
+    <!-- Your existing block content here -->
+{% endblock %}
+
+{% block Appointment %}
+    <!-- Your existing block content here -->
+{% endblock %}

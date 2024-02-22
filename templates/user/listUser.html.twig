@@ -1,0 +1,68 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}List Users{% endblock %}
+
+{% block body %}
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 offset-lg-2">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mb-4 text-success">Datatables</h5>
+                        <!-- Table with stripped rows -->
+                        <style>
+                            /* CSS styles for limiting width of Mot de passe column */
+                            .password-header {
+                                max-width: 150px; /* Adjust the width as needed */
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                            .password-cell {
+                                max-width: 150px; /* Adjust the width as needed */
+                                word-wrap: break-word;
+                            }
+                        </style>
+                        <div class="table-responsive">
+                            <table class="table table-striped datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Email</th>
+                                        <th class="password-header">Mot de passe</th>
+                                        <th>Téléphone</th>
+                                        <th>Rôle(s)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td>{{ user.id }}</td>
+                                            <td>{{ user.nom|upper }}</td>
+                                            <td>{{ user.prenom }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td class="password-cell">{{ user.password }}</td>
+                                            <td>{{ user.telephone }}</td>
+                                            <td>{{ user.role }}</td>
+                                            <td>
+                                                <a href="{{ path('user_edit', {id: user.id}) }}" class="btn btn-success">Modifier</a>
+                                                <a href="{{ path('user_delete', {id: user.id}) }}" class="btn btn-danger">Supprimer</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block headerinner %}
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-12">
+                        <!-- Main Menu and Buttons -->
+                        <div class="row align-items-center">
+                            <div class="col-lg-9 col-12">
+                                <div class="main-menu">
+                                    <nav class="navigation">
+                                        <ul class="nav menu">
+                                            <li class="active"><a href="index.html">Accueil</a></li>
+                                            <li><a href="#"></a></li>
+                                            <li><a href="#">Hôpitaux</a></li>
+                                            <li><a href="#">Laboratoires</a></li>
+                                            <li><a href="#">Pharmacies</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!--/ Fin Menu principal -->
+                            </div>
+                            <div class="col-lg-1 col-6">
+                                <div class="get-quote">
+                                <ul>
+                                     <li><a href="{{ path('app_register') }}" class="btn">s'inscrire</a></li>
+                                </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Main Menu and Buttons -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Inner -->
+{% endblock %}
+
+{% block continue %}
+    <style>
+        /* CSS styles here */
+        html, body {
+            height: 100%;
+        }
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .form-signin {
+            width: 50%; /* Adjust width as needed */
+            padding: 20px;
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 0 10px 0 #3498db;
+        }
+        .form-signin .h1 {
+            color: #3498db; /* Change color to blue */
+            text-align: center;
+        }
+        .form-signin .form-group {
+            margin-bottom: 15px;
+        }
+        .form-signin label {
+            margin-bottom: 5px;
+        }
+        .form-signin input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-signin button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3498db; /* Change color to blue */
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-signin button:hover {
+            background: #3498db; /* Darken color on hover */
+        }
+    </style>
+
+    <div class="testbox">
+        <form method="post" class="form-signin">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <h1 class="h1">Connexion</h1>
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block dispositives %}
+    <!-- Your existing block content here -->
+{% endblock %}
+
+{% block newsletter %}
+    <!-- Your existing block content here -->
+{% endblock %}
+
+{% block Appointment %}
+    <!-- Your existing block content here -->
+{% endblock %}

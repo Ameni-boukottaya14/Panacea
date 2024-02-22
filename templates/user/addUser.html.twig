@@ -1,0 +1,111 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Ajouter un utilisateur{% endblock %}
+{% block profile %}
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="{{ asset('assets/img/me.jpg') }}" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2" style="color: green;">{{ user.nom}} {{user.prenom}}</span>
+                    </a><!-- End Profile Iamge Icon -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6 style="color: black;">{{ user.nom}} {{user.prenom}}</h6>
+                            <span style="color: green;">Directeur General</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ path('dashboard') }}">
+                                <i class="bi bi-person" style="color: green;">{{user.nom}}</i>
+                                <span style="color: green;">My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ path('dashboard') }}">
+                                <i class="bi bi-gear" style="color: green;"></i>
+                                <span style="color: green;">Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ path('dashboard') }}">
+                                <i class="bi bi-question-circle" style="color: green;"></i>
+                                <span style="color: green;">Need Help?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right" style="color: green;"></i>
+                                <span style="color: green;">Sign Out</span>
+                            </a>
+                        </li>
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow" style="background-color: white;">
+                <div class="card-body">
+                    <h1 class="card-title text-center text-success">Edit client</h1>
+
+                    {% if app.flashes('success') is not empty %}
+                        <div class="alert alert-success">
+                            {{ app.flashes('success')[0] }}
+                        </div>
+                    {% endif %}
+
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.nom, 'Nom') }}
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.nom) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.prenom, 'Prénom') }}
+                        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.prenom) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.email, 'Email') }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.email) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.password.first, 'Mot de passe') }}
+                        {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.password.first) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.password.second, 'Confirmer mot de passe') }}
+                        {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.password.second) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.telephone, 'Téléphone') }}
+                        {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.telephone) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.role, 'Role') }}
+                        {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+                        <div class="text-danger">{{ form_errors(form.role) }}</div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
