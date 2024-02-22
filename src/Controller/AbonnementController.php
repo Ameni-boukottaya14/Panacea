@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use DateTime;
 
 #[Route('/abonnement')]
 class AbonnementController extends AbstractController
@@ -22,27 +23,38 @@ class AbonnementController extends AbstractController
         ]);
     }
 
-    #[Route('/NewAbonnement', name: 'abonnement_new')]
-    public function new(Request $request): Response
-    {
-        $ordonnance = new Abonnement();
-        $form = $this->createForm(AbonnementType::class, $ordonnance);
-        $form->handleRequest($request);
+#[Route('/NewAbonnement', name: 'abonnement_new')]
+public function new(Request $request): Response
+{
+    $abonnement = new Abonnement();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($abonnement);
-            $entityManager->flush();
+    // Set DateC to the current date
+    $dateC = new DateTime();
+    $abonnement->setDateC($dateC);
 
-            $this->addFlash('success', 'abonnement ajoutée avec succès.');
-            return $this->redirectToRoute('abonnement_index');
-        }
+    // Set DateE to DateC + 1 year
+    $dateE = clone $dateC;
+    $dateE->modify('+1 year');
+    $abonnement->setDateE($dateE);
 
-        return $this->render('abonnement/NewAbonnement.html.twi', [
-            'abonnement' => $abonnement,
-            'form' => $form->createView(),
-        ]);
+    $form = $this->createForm(AbonnementType::class, $abonnement);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($abonnement);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Abonnement ajoutée avec succès.');
+        return $this->redirectToRoute('abonnement_index');
     }
+
+    return $this->render('abonnement/NewAbonnement.html.twig', [
+        'abonnement' => $abonnement,
+        'form' => $form->createView(),
+    ]);
+}
+
 
    /* #[Route('/{id}', name: 'abonnement_show', methods: ['GET'])]
     public function show(Abonnement $abonnement): Response

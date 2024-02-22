@@ -24,7 +24,7 @@ class Offre
     #[ORM\Column]
     private ?float $PrixO = null;
 
-    #[ORM\OneToMany(targetEntity: Abonnement::class, mappedBy: 'OffreId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Abonnement::class, mappedBy: 'Offre', orphanRemoval: true)]
     private Collection $abonnements;
 
     public function __construct()
@@ -85,7 +85,7 @@ class Offre
     {
         if (!$this->abonnements->contains($abonnement)) {
             $this->abonnements->add($abonnement);
-            $abonnement->setOffreId($this);
+            $abonnement->setOffre($this);
         }
 
         return $this;
@@ -95,11 +95,15 @@ class Offre
     {
         if ($this->abonnements->removeElement($abonnement)) {
             // set the owning side to null (unless already changed)
-            if ($abonnement->getOffreId() === $this) {
-                $abonnement->setOffreId(null);
+            if ($abonnement->getOffre() === $this) {
+                $abonnement->setOffre(null);
             }
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->getNomO();
     }
 }

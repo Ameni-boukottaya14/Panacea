@@ -14,16 +14,8 @@ class AbonnementType extends AbstractType
         $builder
             ->add('DateE')
             ->add('DateC')
-            ->add('ClientId', null, [
-                'constraints' => [
-                    new NotBlank(['message' => 'Le Client ne doit pas être vide.']),
-                ],
-            ])
-            ->add('OffreId', null, [
-                'constraints' => [
-                    new NotBlank(['message' => 'L Offre ne doit pas être vide.']),
-                ],
-            ])
+            ->add('Client')
+            ->add('Offre')
         ;
     }
 
@@ -34,4 +26,3 @@ class AbonnementType extends AbstractType
         ]);
     }
 }
-?>

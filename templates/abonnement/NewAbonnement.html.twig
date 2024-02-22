@@ -11,13 +11,13 @@
           <h1 class="card-title text-center text-success">Create New Abonnement</h1>
           {{ form_start(form) }}
           <div class="mb-3">
-            {{ form_label(form.ClientID, 'Client', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.ClientID, {'attr': {'class': 'form-control'}}) }}
+            {{ form_label(form.Client, 'Client', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.Client, {'attr': {'class': 'form-control'}}) }}
             <div class="text-danger">{{ form_errors(form.Client) }}</div>
           </div>
           <div class="mb-3">
-            {{ form_label(form.OfferId, 'Offer', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.OfferId, {'attr': {'class': 'form-control'}}) }}
+            {{ form_label(form.Offre, 'Offre', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.Offre, {'attr': {'class': 'form-control'}}) }}
             <div class="text-danger">{{ form_errors(form.Offre) }}</div>
           </div>
           <div class="mb-3">

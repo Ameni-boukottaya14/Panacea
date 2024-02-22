@@ -45,4 +45,14 @@
         </div>
     </div>
 </section>
+{% block javascripts %}
+    <script>
+        // Show popup when page loads if there is a success message
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if app.session.flashbag.has('success') %}
+                alert('{{ app.session.flashbag.get('success')[0] }}');
+            {% endif %}
+        });
+    </script>
+{% endblock %}
 {% endblock %}

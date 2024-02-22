@@ -16,11 +16,10 @@
                                 <thead>
                                     <tr>
                                         <th class="text-success">ID</th>
-                                        <th class="text-success">Client ID</th>
+                                        <th class="text-success">Client</th>
                                         <th class="text-success">DateC</th>
                                         <th class="text-success">DateE</th>
-                                        <th class="text-success">Etendre</th>
-                                        <th class="text-success">ID Offre</th>
+                                        <th class="text-success">Offre</th>
                                         <th class="text-success">Action</th>
                                     </tr>
                                 </thead>
@@ -28,11 +27,10 @@
                                     {% for abonnement in abonnements %}
                                     <tr>
                                         <td class="text-black">{{ abonnement.id }}</td>
-                                        <td class="text-black">{{ abonnement.clientId }}</td>
-                                        <td class="text-black">{{ abonnement.dateC|date('Y-m-d H:i:s') }}</td>
-                                        <td class="text-black">{{ abonnement.dateE|date('Y-m-d H:i:s') }}</td>
-                                        <td class="text-black">{{ abonnement.etendre }}</td>
-                                        <td class="text-black">{{ abonnement.idOffre }}</td>
+                                        <td class="text-black">{{ abonnement.client }}</td>
+                                        <td class="text-black">{{ abonnement.dateC|date('Y-m-d') }}</td>
+                                        <td class="text-black">{{ abonnement.dateE|date('Y-m-d') }}</td>
+                                        <td class="text-black">{{ abonnement.Offre }}</td>
                                         <td>
                                             <button class="btn btn-success"><a href="{{ path('abonnement_edit', {id: abonnement.id}) }}" class="text-white">Edit</a></button>
                                             <button class="btn btn-danger"><a href="{{ path('abonnement_delete', {id: abonnement.id}) }}" class="text-white">Delete</a></button>
@@ -49,4 +47,14 @@
         </div>
     </div>
 </section>
+{% block javascripts %}
+    <script>
+        // Show popup when page loads if there is a success message
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if app.session.flashbag.has('success') %}
+                alert('{{ app.session.flashbag.get('success')[0] }}');
+            {% endif %}
+        });
+    </script>
+{% endblock %}
 {% endblock %}

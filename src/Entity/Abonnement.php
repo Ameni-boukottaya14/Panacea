@@ -14,19 +14,20 @@ class Abonnement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'abonnements')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Client $CLinetId = null;
-
-    #[ORM\ManyToOne(inversedBy: 'abonnements')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Offre $OffreId = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateE = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DateC = null;
+
+    #[ORM\ManyToOne(inversedBy: 'abonnements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Client $Client = null;
+
+    #[ORM\ManyToOne(inversedBy: 'abonnements')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Offre $Offre = null;
 
     public function getId(): ?int
     {
@@ -77,6 +78,30 @@ class Abonnement
     public function setDateC(\DateTimeInterface $DateC): static
     {
         $this->DateC = $DateC;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->Client;
+    }
+
+    public function setClient(?Client $Client): static
+    {
+        $this->Client = $Client;
+
+        return $this;
+    }
+
+    public function getOffre(): ?Offre
+    {
+        return $this->Offre;
+    }
+
+    public function setOffre(?Offre $Offre): static
+    {
+        $this->Offre = $Offre;
 
         return $this;
     }

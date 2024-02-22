@@ -24,6 +24,14 @@ class OffreController extends AbstractController
         ]);
     }
 
+    #[Route('/Home', name: 'offre_Home_index')]
+    public function indexH(OffreRepository $offreRepository): Response
+    {
+        return $this->render('base.html.twig', [
+            'offres' => $offreRepository->findAll(),
+        ]);
+    }
+
     
     #[Route('/new', name: 'offre_new')]
     public function new(Request $request): Response
@@ -36,6 +44,8 @@ class OffreController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($offre);
             $entityManager->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Offre added successfully.');
 
             return $this->redirectToRoute('offre_index');
         }
@@ -66,6 +76,8 @@ class OffreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $request->getSession()->getFlashBag()->add('success', 'Offre Edited successfully.');
+
             return $this->redirectToRoute('offre_index');
         }
        return $this->render('offre/EditOffre.html.twig', [
@@ -82,6 +94,9 @@ class OffreController extends AbstractController
         $em = $managerRegistry->getManager();
         $em->remove($offre);
         $em->flush();
+
+        $request->getSession()->getFlashBag()->add('success', 'Offre deleted successfully.');
+
 
         return $this->redirectToRoute('offre_index');
     }

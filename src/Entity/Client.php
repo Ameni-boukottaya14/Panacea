@@ -31,7 +31,7 @@ class Client
     #[ORM\Column]
     private ?int $telephone = null;
 
-    #[ORM\OneToMany(targetEntity: Abonnement::class, mappedBy: 'CLinetId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Abonnement::class, mappedBy: 'Client', orphanRemoval: true)]
     private Collection $abonnements;
 
     public function __construct()
@@ -115,7 +115,7 @@ class Client
     {
         if (!$this->abonnements->contains($abonnement)) {
             $this->abonnements->add($abonnement);
-            $abonnement->setCLinetId($this);
+            $abonnement->setClient($this);
         }
 
         return $this;
@@ -125,13 +125,16 @@ class Client
     {
         if ($this->abonnements->removeElement($abonnement)) {
             // set the owning side to null (unless already changed)
-            if ($abonnement->getCLinetId() === $this) {
-                $abonnement->setCLinetId(null);
+            if ($abonnement->getClient() === $this) {
+                $abonnement->setClient(null);
             }
         }
 
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 }
