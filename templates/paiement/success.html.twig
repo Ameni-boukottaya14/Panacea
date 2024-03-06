@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}payment{% endblock %}
+
+
+{% block body %} 
+
+
+</br></br>
+<div style="text-align:center;">
+    <h1 style="font-size: 2.5rem ; text-align: center; text-transform: uppercase; font-weight:bold /*margin-top: 20px;*/">Thank You For Your Order!</h1>
+    <div style="margin-top: 40px"></div>
+    <p>We appreciate your business and hope you enjoy your purchase.</p>
+    <p>If you have any questions or concerns, please don't hesitate to contact our customer support team.</p>
+    <p>Thanks again for choosing us!</p>
+    <p>
+        If you have any questions, please email
+        <a href="mrabet.feres@gmail.com">mrabet.feres@gmail.com</a>.
+    </p>
+  
+    <div style="margin-top: 40px"></div>
+        <button type="submit" class="btn btn-success btn-block" ><a href="{{ path('abonnement_newcart') }}">back to home</a></button>
+    </form>
+{% endblock %}

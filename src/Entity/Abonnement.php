@@ -22,11 +22,11 @@ class Abonnement
     private ?\DateTimeInterface $DateC = null;
 
     #[ORM\ManyToOne(inversedBy: 'abonnements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Client $Client = null;
 
     #[ORM\ManyToOne(inversedBy: 'abonnements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Offre $Offre = null;
 
     public function getId(): ?int

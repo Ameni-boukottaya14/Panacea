@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Payment{% endblock %}
+
+
+{% block body %}
+
+
+<br/><br/>
+ <div style="text-align:center;">
+        <h1 style="font-size: 2.5rem ; text-align: center; text-transform: uppercase; font-weight:bold /*margin-top: 20px;*/">Payment Failed</h1>
+        <div style="margin-top: 40px"></div>
+        <p>Oops! We're sorry to inform you that your payment has not been processed successfully. </p>
+        <p>Please check your payment details and try again. If the problem persists, please contact our customer support team for further assistance.</p>
+        <p>We apologize for any inconvenience caused.</p>
+        <p>
+            If you have any questions, please email
+            <a href="mrabet.feres@gmail.com">mrabet.feres@gmail.com</a>.
+        </p>
+      
+        <div style="margin-top: 40px"></div>
+            <button type="submit"class="btn btn-success btn-block" ><a href="{{ path('front') }}">Back to Homer</a></button>
+        </form>
+    </div>
+
+{% endblock %}

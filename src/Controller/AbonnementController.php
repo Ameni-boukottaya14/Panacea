@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\OffreType;
+use App\Repository\OffreRepository;
+use App\Entity\Client;
+use App\Repository\ClientRepository;
 use App\Entity\Abonnement;
 use App\Form\AbonnementType;
 use App\Repository\AbonnementRepository;
@@ -11,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use DateTime;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 #[Route('/abonnement')]
 class AbonnementController extends AbstractController
@@ -92,5 +98,38 @@ public function new(Request $request): Response
         }
 
         return $this->redirectToRoute('abonnement_index');
+    }
+
+    #[Route('/NewAbonnementcart', name: 'abonnement_newcart')]
+    public function newCA(Request $request,OffreRepository $offreRepository, ClientRepository $clientRepository, SessionInterface $session): Response
+    {
+        $panier = $session->get("panier", []);
+
+        foreach ($panier as $id){
+            $abonnement = new Abonnement();
+
+            // Set DateC to the current date
+            $dateC = new DateTime();
+            $abonnement->setDateC($dateC);
+
+            // Set DateE to DateC + 1 year
+            $dateE = clone $dateC;
+            $dateE->modify('+1 year');
+            $abonnement->setDateE($dateE);
+            
+            $client=$clientRepository->find(6);
+            $abonnement->setClient($client);
+            $offre=$offreRepository->find($id);
+            $abonnement->setOffre($offre);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($abonnement);
+            $entityManager->flush();
+        }
+
+
+        $smsController = new \App\Controller\SMSController();
+        $smsController->index('HI Admin user :'.$client.'get payment success');
+        return $this->redirectToRoute('CartDeleteAll');
+
     }
 }
