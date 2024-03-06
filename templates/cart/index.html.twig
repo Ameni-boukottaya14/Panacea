@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </section>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Offre</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in dataPanier %}
+                <tr>
+                    <td>{{ element.Offre.NomO }}</td>
+                    <td>{{ element.Offre.PrixO }} $</td>
+                    <td>
+                        <a href="{{path("CartDelete", {id: element.Offre.id})}}" class="btn btn-danger text-white">supprimer</a>
+                    </td>
+                    <tr colspan="3"><td> * </td><tr>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td>{{ total }} $</td>
+                <td>
+                    <a href="{{path("CartDeleteAll")}}" class="btn btn-danger text-white">annuler</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_checkout', {id: total }) }}" class="btn btn-danger text-white">confirmer</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    
+{% endblock %}

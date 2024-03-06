@@ -1,0 +1,35 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Create New Offre{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow" style="background-color: white;">
+        <div class="card-body">
+          <h1 class="card-title text-center text-success">Create New Offre</h1>
+          {{ form_start(form) }}
+          <div class="mb-3">
+            {{ form_label(form.NomO, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.NomO, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.NomO) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.DescriptionO, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.DescriptionO, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.DescriptionO) }}</div>
+          </div>
+          <div class="mb-3">
+            {{ form_label(form.PrixO, 'Prix', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.PrixO, {'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.PrixO) }}</div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Create</button>
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

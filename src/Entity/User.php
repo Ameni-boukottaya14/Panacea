@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -67,7 +69,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $status = true;
 
     #[ORM\Column]
-    private ?bool $request = null; // Set default value to true
+    private ?bool $request = null;
+
+    #[ORM\OneToMany(targetEntity: Abonnement::class, mappedBy: 'User')]
+    private Collection $abonnements;
+
+    public function __construct()
+    {
+        $this->abonnements = new ArrayCollection();
+    } // Set default value to true
 
     public function getId(): ?int
     {
@@ -216,5 +226,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->request = $request;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Abonnement>
+     */
+    public function getAbonnements(): Collection
+    {
+        return $this->abonnements;
+    }
+
+    public function addAbonnement(Abonnement $abonnement): static
+    {
+        if (!$this->abonnements->contains($abonnement)) {
+            $this->abonnements->add($abonnement);
+            $abonnement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbonnement(Abonnement $abonnement): static
+    {
+        if ($this->abonnements->removeElement($abonnement)) {
+            // set the owning side to null (unless already changed)
+            if ($abonnement->getUser() === $this) {
+                $abonnement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
     }
 }

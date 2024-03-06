@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Offre;
+use App\Repository\OffreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +19,7 @@ use App\Form\ChangePasswordType;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'home')]
-    public function index(): Response
+    public function index(OffreRepository $offreRepository): Response
     {
         $user = $this->getUser();
         if ($user) {
@@ -28,6 +30,7 @@ class HomeController extends AbstractController
             return $this->render('user/HomePage.html.twig', [
                 'username' => $username,
                 'user' => $user,
+                'offres' => $offreRepository->findAll(),
                 // other variables
             ]);
         } else {

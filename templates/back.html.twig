@@ -165,11 +165,35 @@
                 </a>
             </li><!-- End Lab Nav -->
             <li class="nav-item">
-                <a class="nav-link " href="{{ path('dashboard') }}">
+                <a  class="nav-link collapsed" data-bs-target="#Offre-nav" data-bs-toggle="collapse" >
                     <i class=" ri-stack-fill" style="color: green;"></i>
-                    <span style="color: green;">Services</span>
+                    <span style="color: green;">Offres</span>
+                    <i class="bi bi-chevron-down ms-auto" style="color: green;"></i>
                 </a>
-            </li><!-- End Services Nav -->
+                <ul id="Offre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ path('offre_new') }}" >
+                        <i class="bi bi-circle" style="color: green;"></i><span style="color: green;">add Offre</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('abonnement_new') }}">
+                        <i class="bi bi-circle" style="color: green;"></i><span style="color: green;">add abonnement</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('offre_index') }}">
+                        <i class="bi bi-circle" style="color: green;"></i><span style="color: green;">Offers List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('abonnement_index') }}">
+                        <i class="bi bi-circle" style="color: green;"></i><span style="color: green;">abonnements List</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li><!-- End Offre Nav -->
         </ul>
     </aside>
     <!-- End Sidebar-->
