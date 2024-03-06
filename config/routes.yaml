@@ -1,3 +1,15 @@
+# config/routes.yaml
+
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+user_qr_code:
+    path: /user/{id}/qr-code
+    controller: App\Controller\UserController::generateQrCode
+verify_email:
+    path: '/verify-email/{token}'
+    controller: App\Controller\VerificationController::verifyEmail
+app_verify_email:
+    path: '/verify-email/{token}'
+    controller: 'App\Controller\VerificationController::verifyEmail'

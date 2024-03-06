@@ -36,16 +36,8 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmer mot de passe'],
             ])
-            ->add('telephone', TelType::class, ['label' => 'Téléphone'])
-            ->add('role', ChoiceType::class, [
-                'label' => 'Role',
-                'choices' => [
-                    'Client' => 'client',
-                    'Employer' => 'employer',
-                ],
-                'placeholder' => 'Choisir un rôle',
-                'required' => true,
-            ]);
+            ->add('telephone', TelType::class, ['label' => 'Téléphone']);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

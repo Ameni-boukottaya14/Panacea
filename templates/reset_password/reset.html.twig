@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+    <style>
+        /* CSS styles here */
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Adjust height as needed */
+            margin-top: 50px; /* Add margin top */
+        }
+        .form-signin {
+            width: 50%; /* Adjust width as needed */
+            padding: 20px;
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 0 10px 0 #3498db;
+            text-align: center; /* Center align text */
+        }
+        .form-signin .h1 {
+            color: #3498db; /* Change color to blue */
+        }
+        .form-signin .form-group {
+            margin-bottom: 15px;
+        }
+        .form-signin label {
+            margin-bottom: 5px;
+        }
+        .form-signin input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px; /* Add margin bottom */
+        }
+        .form-signin button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3498db; /* Change color to blue */
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-signin button:hover {
+            background: #2980b9; /* Darken color on hover */
+        }
+    </style>
+
+    <div class="testbox">
+        <div class="form-signin">
+            <h1 class="h1">Reset your password</h1>
+            {{ form_start(resetForm) }}
+                {{ form_row(resetForm.plainPassword) }}
+                <button type="submit" class="btn btn-primary">Reset password</button>
+            {{ form_end(resetForm) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block dispositives %}
+    <!-- Your existing block content here -->
+{% endblock %}
+
+{% block newsletter %}
+    <!-- Your existing block content here -->
+{% endblock %}
+
+{% block Appointment %}
+    <!-- Your existing block content here -->
+{% endblock %}

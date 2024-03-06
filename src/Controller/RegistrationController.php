@@ -4,29 +4,30 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Service\EmailVerificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface; // Correct import
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Uid\Uuid;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, CsrfTokenManagerInterface $csrfTokenManager): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $entityManager,
+        EmailVerificationService $emailVerificationService
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-           
-
-            // encode the plain password
+            // Encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -34,15 +35,19 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Generate verification token
+            $verificationToken = Uuid::v4()->toRfc4122();
+            $user->setVerificationToken($verificationToken);
+
+            // Persist user entity
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Redirect based on role
-            if ($user->getRole() === 'client') {
-                return $this->redirectToRoute('home');
-            } elseif ($user->getRole() === 'employer') {
-                return $this->redirectToRoute('work');
-            }
+            // Send email verification
+            $emailVerificationService->sendVerificationEmail($user);
+
+            // Redirect to login page after successful registration
+            return $this->redirectToRoute('app_login');
         }
 
         // Error flash message

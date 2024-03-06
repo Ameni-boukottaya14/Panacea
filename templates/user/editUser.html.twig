@@ -41,11 +41,6 @@
                         {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
                         <div class="text-danger">{{ form_errors(form.telephone) }}</div>
                     </div>
-                    <div class="mb-3">
-                        {{ form_label(form.role, 'Role') }}
-                        {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
-                        <div class="text-danger">{{ form_errors(form.role) }}</div>
-                    </div>
                     <button type="submit" class="btn btn-success w-100">Modifier</button>
                     {{ form_end(form) }}
                 </div>

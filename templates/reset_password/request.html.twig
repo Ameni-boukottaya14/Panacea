@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block headerinner %}
     <!-- Header Inner -->
     <div class="header-inner">
@@ -36,11 +35,10 @@
                             <div class="col-lg-1 col-6">
                                 <div class="get-quote">
                                     <ul>
-                                        <li><a href="{{ path('app_login') }}" class="btn">Connexion</a></li>
+                                        <li><a href="{{ path('app_register') }}" class="btn">s'inscrire</a></li>
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                         <!-- End Main Menu and Buttons -->
                     </div>
@@ -50,31 +48,26 @@
     </div>
     <!-- End Header Inner -->
 {% endblock %}
-
 {% block continue %}
     <style>
         /* CSS styles here */
-        html, body {
-            height: 100%;
-        }
         .testbox {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            margin-top: 20px; /* Adjust margin as needed */
+            height: 80vh; /* Adjust height as needed */
+            margin-top: 50px; /* Add margin top */
         }
         .form-signin {
-            width: 450px; /* Adjust width as needed */
-            padding: 10px;
+            width: 50%; /* Adjust width as needed */
+            padding: 20px;
             border-radius: 6px;
             background: #fff;
             box-shadow: 0 0 10px 0 #3498db;
+            text-align: center; /* Center align text */
         }
         .form-signin .h1 {
             color: #3498db; /* Change color to blue */
-            text-align: center;
-            margin-bottom: 20px; /* Adjust margin as needed */
         }
         .form-signin .form-group {
             margin-bottom: 15px;
@@ -82,12 +75,12 @@
         .form-signin label {
             margin-bottom: 5px;
         }
-        .form-signin input,
-        .form-signin select {
+        .form-signin input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            margin-bottom: 10px; /* Add margin bottom */
         }
         .form-signin button {
             width: 100%;
@@ -99,67 +92,30 @@
             cursor: pointer;
         }
         .form-signin button:hover {
-            background: #3498db; /* Darken color on hover */
+            background: #2980b9; /* Darken color on hover */
         }
     </style>
 
     <div class="testbox">
-        <form method="post" class="form-signin">
-            {{ form_row(form._token) }} {# Add this line to include the CSRF token field #}
-            <h1 class="h1">Register</h1>
-            <div class="form-group">
-                {{ form_label(form.nom, 'Nom') }}
-                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                <div class="text-danger">{{ form_errors(form.nom) }}</div>
-            </div>
-            <div class="form-group">
-                {{ form_label(form.prenom, 'Prénom') }}
-                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                <div class="text-danger">{{ form_errors(form.prenom) }}</div>
-            </div>
-            <div class="form-group">
-                {{ form_label(form.email, 'Email') }}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                <div class="text-danger">{{ form_errors(form.email) }}</div>
-            </div>
-            <div class="form-group">
-                {{ form_label(form.password.first, 'Mot de passe') }}
-                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
-                <div class="text-danger">{{ form_errors(form.password.first) }}</div>
-            </div>
-            <div class="form-group">
-                {{ form_label(form.password.second, 'Confirmer mot de passe') }}
-                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
-                <div class="text-danger">{{ form_errors(form.password.second) }}</div>
-            </div>
-            <div class="form-group">
-                {{ form_label(form.telephone, 'Téléphone') }}
-                {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
-                <div class="text-danger">{{ form_errors(form.telephone) }}</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+        <div class="form-signin">
+            {% for flash_error in app.flashes('reset_password_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+            <div class="h1">Reset Password</div>
+            <p>Enter your email address, and we will send you a link to reset your password.</p>
+            {{ form_start(requestForm) }}
+                {{ form_row(requestForm.email) }}
+                <button type="submit" class="btn btn-primary">Send password reset email</button>
+            {{ form_end(requestForm) }}
+        </div>
     </div>
-    {% block javascripts %}
-    <script>
-        // Show popup when page loads if there is a success message
-        document.addEventListener('DOMContentLoaded', function() {
-            {% if app.session.flashbag.has('success') %}
-                alert('{{ app.session.flashbag.get('success')[0] }}');
-            {% endif %}
-        });
-    </script>
 {% endblock %}
-{% endblock %}
-
 {% block dispositives %}
     <!-- Your existing block content here -->
 {% endblock %}
-
 {% block newsletter %}
     <!-- Your existing block content here -->
 {% endblock %}
-
 {% block Appointment %}
     <!-- Your existing block content here -->
 {% endblock %}

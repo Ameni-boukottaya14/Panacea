@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block headerinner %}
     <!-- Header Inner -->
     <div class="header-inner">
@@ -40,7 +39,6 @@
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                         <!-- End Main Menu and Buttons -->
                     </div>
@@ -54,14 +52,12 @@
 {% block continue %}
     <style>
         /* CSS styles here */
-        html, body {
-            height: 100%;
-        }
         .testbox {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: 80vh; /* Adjust height as needed */
+            margin-top: 50px; /* Add margin top */
         }
         .form-signin {
             width: 50%; /* Adjust width as needed */
@@ -69,10 +65,10 @@
             border-radius: 6px;
             background: #fff;
             box-shadow: 0 0 10px 0 #3498db;
+            text-align: center; /* Center align text */
         }
         .form-signin .h1 {
             color: #3498db; /* Change color to blue */
-            text-align: center;
         }
         .form-signin .form-group {
             margin-bottom: 15px;
@@ -80,85 +76,48 @@
         .form-signin label {
             margin-bottom: 5px;
         }
-        .form-signin input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+        .try-again-container {
+            margin-top: 20px; /* Adjust margin top */
+            text-align: center; /* Center align the button */
         }
-        .form-signin button {
-            width: 100%;
-            padding: 10px;
-            border: none;
+        .try-again {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff; /* Set text color to white */
+            text-decoration: none;
             border-radius: 5px;
-            background: #3498db; /* Change color to blue */
-            color: #fff;
+            transition: background-color 0.3s;
+            border: none; /* Remove border */
             cursor: pointer;
         }
-        .form-signin button:hover {
-            background: #3498db; /* Darken color on hover */
+        .try-again:hover {
+            background-color: #2980b9;
         }
     </style>
 
     <div class="testbox">
-        <form method="post" class="form-signin">
-          {% if error %}
-                <!-- Display error message -->
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% if error.messageKey == 'Votre compte est désactivé.' %}
-                    <!-- Link to request activation -->
-                    <div class="mb-3">
-            <p>Pour reactiver votre compte, envoyer une request ,  <a href="{{ path('user_active_request')}}">Cliquez ici</a></p>
-                    </div>
-                {% endif %}
-            {% endif %}
-
-            {% if app.user is defined %}
-                {% if app.user %}
-                    <div class="mb-3">
-                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                    </div>
-                {% endif %}
-            {% endif %}
-
-            <h1 class="h1">Connexion</h1>
-            <div class="form-group">
-                <label for="inputEmail">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        <div class="form-signin">
+            <h1 class="h1">Reset Password Email Sent!</h1>
+            <p>
+                If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+                This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+            </p>
+            <div class="try-again-container">
+                <form action="{{ path('app_forgot_password_request') }}" method="get">
+                    <button type="submit" class="try-again">Try Again</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-            </div>
-
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <!-- Add "mot de passe oublier ?" text with link to reset password page -->
-            <p>Mot de passe oublié ? <a href="{{ path('app_forgot_password_request')}}">Cliquez ici</a></p>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+        </div>
     </div>
 {% endblock %}
 
-{% block javascripts %}
-    <script>
-        // Show popup when page loads if there is a success message
-        document.addEventListener('DOMContentLoaded', function() {
-            {% if app.session.flashbag.has('success') %}
-                alert('{{ app.session.flashbag.get('success')[0] }}');
-            {% endif %}
-        });
-    </script>
-{% endblock %}
-
 {% block dispositives %}
-    <!-- Your existing dispositives block content here -->
+    <!-- Your existing block content here -->
 {% endblock %}
-
 {% block newsletter %}
-    <!-- Your existing newsletter block content here -->
+    <!-- Your existing block content here -->
 {% endblock %}
-
 {% block Appointment %}
-    <!-- Your existing Appointment block content here -->
+    <!-- Your existing block content here -->
 {% endblock %}

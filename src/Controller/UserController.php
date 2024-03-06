@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\ReactiveType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\QrCodeGenerator;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserController extends AbstractController
 {
@@ -47,7 +53,7 @@ class UserController extends AbstractController
             $entityManager->flush();
     
             // Add success message to flash bag
-            $this->addFlash('success', 'User added successfully!');
+            $request->getSession()->getFlashBag()->add('success', 'User added successfully.');
     
             return $this->redirectToRoute('user_list');
         }
@@ -72,7 +78,8 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
     
             $this->getDoctrine()->getManager()->flush();
-    
+            $request->getSession()->getFlashBag()->add('success', 'User edited successfully.');
+
             return $this->redirectToRoute('user_list');
         }
     
@@ -82,16 +89,110 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'user_delete')]
-    public function delete($id,UserRepository $repository,Request  $request, ManagerRegistry $managerRegistry): Response
+    #[Route('/{id}/desactiver', name: 'user_desactiver')]
+    public function delete($id, UserRepository $repository, Request $request, ManagerRegistry $managerRegistry): Response
     {
+        $user = $repository->find($id);
+        
+        // Check if user exists
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+        
+        // Set status to false instead of removing the user
+        $user->setStatus(true);
+        
+        // Persist the changes to the database
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-        $user= $repository->find($id);
-        $em = $managerRegistry->getManager();
-        $em->remove($user);
-        $em->flush();
+        // Add a success message 
+        $this->addFlash('success', 'User deactivated successfully.');
 
         return $this->redirectToRoute('user_list');
     }
 
+    #[Route('/{id}/desactiverProfile', name: 'user_desactiver_profile')]
+    public function desactiver($id, UserRepository $repository, Request $request, ManagerRegistry $managerRegistry): Response
+    {
+        $user = $repository->find($id);
+        
+        // Check if user exists
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+        
+        // Set status to false instead of removing the user
+        $user->setStatus(true);
+        
+        // Persist the changes to the database
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_logout');
+    }
+
+    #[Route('/{id}/activer', name: 'user_activer')]
+    public function activer($id, UserRepository $repository, Request $request, ManagerRegistry $managerRegistry): Response
+    {
+        $user = $repository->find($id);
+        
+        // Check if user exists
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+        
+        // Set status to false instead of removing the user
+        $user->setStatus(false);
+        $user->setRequest(false);
+        // Persist the changes to the database
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // Add a success message
+        $this->addFlash('success', 'User activated successfully.');
+
+        return $this->redirectToRoute('user_list');
+    }
+
+
+    #[Route(path: '/request', name: 'user_active_request')]
+public function request(Request $request, UserRepository $userRepository): Response
+{
+    $form = $this->createForm(ReactiveType::class);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $data = $form->getData();
+        $email = $data['email'];
+
+        $user = $userRepository->findOneBy(['email' => $email]);
+
+        // Check if user exists
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Set status to true to request activation
+        $user->setRequest(true);
+
+        // Persist the changes to the database
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // Add a success message
+        $this->addFlash('success', 'Request sent successfully.');
+
+        return $this->redirectToRoute('app_login');
+    }
+
+    return $this->render('user/requestActive.html.twig', [
+        'form' => $form->createView(),
+    ]);
 }
+}
+  

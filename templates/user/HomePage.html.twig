@@ -34,15 +34,22 @@
                                 </div>
                                 <!--/ Fin Menu principal -->
                             </div>
-                            <div class="col-lg-1 col-6">
-                                <div class="get-quote">
-                                <ul>
-                                 <li><a style="font-size: 20px; color: #3498db;">{{user.nom}}</a></li>
-                                     <li><a href="{{ path('profile') }}" class="btn">PROFILE</a></li>
-                                </ul>
-
-                                </div>
+                             <div class="col-lg-1 col-6">
+                            <div class="get-quote">
+                                     <ul>
+                                    <li><a style="font-size: 20px; color: #3498db;">{{user.nom}}</a></li>
+                                     </ul>
                             </div>
+                        </div>
+                     <div class="col-lg-2 col-6">
+    <div class="get-quote" style="margin-left: 60px;"> <!-- Added margin -->
+        <ul>
+            <li><a href="{{ path('profile') }}" class="btn" style="margin-bottom: 10px;">Profile</a></li>
+            <li><a href="{{ path('app_logout') }}" class="btn" style="margin-bottom: 10px;">Deconnexion</a></li>
+        </ul>
+    </div>
+</div>
+
 
                         </div>
                         <!-- End Main Menu and Buttons -->
