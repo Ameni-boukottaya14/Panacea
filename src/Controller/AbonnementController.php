@@ -128,7 +128,7 @@ public function new(Request $request): Response
 
 
         $smsController = new \App\Controller\SMSController();
-        $smsController->index('HI Admin user :'.$client.'get payment success');
+        $smsController->index('HI Admin user :get payment success');
         return $this->redirectToRoute('CartDeleteAll');
 
     }

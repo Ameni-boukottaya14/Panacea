@@ -20,7 +20,7 @@ class SMSController extends AbstractController
             // Your Account SID and Auth Token from twilio.com/console
             // To set up environmental variables, see http://twil.io/secure
             $account_sid = 'ACce2b51ef817e19bfe9172dfa1bbec086';
-            $auth_token = 'b9b749b7e290385b3655eb57bf1ed3fe';
+            $auth_token = '47d03cafbd404021e580c4fced112340';
             // In production, these should be environment variables. E.g.:
             // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
 
@@ -40,20 +40,5 @@ class SMSController extends AbstractController
             return new Response('SMS sent successfully');
         }
 
-        #[Route('/SMShelp', name: 'app_SMS')]
-        public function test(): Response
-        {
-                 $sid = 'ACce2b51ef817e19bfe9172dfa1bbec086';
-                $token = 'b9b749b7e290385b3655eb57bf1ed3fe';
-                $twilio = new Client($sid, $token);
-
-                $validation_request = $twilio->validationRequests
-                                            ->create("+14158675310", // phoneNumber
-                                                    ["nour" => "+21627942274"]
-                                            );
-
-                print($validation_request->friendlyName);
-            return new Response('SMS sent successfully');
-        }
 
     }
