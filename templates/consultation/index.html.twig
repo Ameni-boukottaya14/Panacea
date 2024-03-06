@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Consultation index{% endblock %}
 
@@ -9,8 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Médecin</th>
+                <th>Client</th>
                 <th>Prix</th>
                 <th>Date</th>
+                <th>Status</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,11 +21,19 @@
         {% for consultation in consultations %}
             <tr>
                 <td>{{ consultation.id }}</td>
-                <td>{{ consultation.prix }}</td>
-                <td>{{ consultation.date ? consultation.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ consultation.medecin.prenom }} {{ consultation.medecin.nom }}</td>
+                <td>{{ consultation.client.prenom }} {{ consultation.client.nom }}</td>
+                <td>{{ consultation.prix }} TND</td>
+                <td>{{ consultation.date ? consultation.date|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ consultation.status }}</td>
                 <td>
-                    <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}">show</a>
-                    <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}">edit</a>
+                    <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    {% if consultation.status == "En Attente" %}
+                        <a href="{{ path('app_consultation_confirm', {'id': consultation.id}) }}" class="btn btn-info btn-sm">Confirmer</a>
+                        <a href="{{ path('app_consultation_refuse', {'id': consultation.id}) }}" class="btn btn-info btn-sm">Refuser</a>
+                    {% elseif consultation.status == "Confirmée" %}
+                        <a href="{{ path('app_consultation_confirm', {'id': consultation.id}) }}" class="btn btn-info btn-sm">Annuler</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +43,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_consultation_new') }}">Create new</a>
 {% endblock %}

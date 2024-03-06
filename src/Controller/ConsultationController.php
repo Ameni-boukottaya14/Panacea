@@ -8,15 +8,34 @@ use App\Entity\Medecin;
 use App\Form\ConsultationType;
 use App\Repository\ConsultationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\BodyRenderer;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 #[Route('/consultation')]
 class ConsultationController extends AbstractController
 {
-    #[Route('/', name: 'app_consultation_index', methods: ['GET'])]
+    private $mailer;
+
+    public function __construct()
+    {
+        // Create a transport object
+        $transport = Transport::fromDsn('smtp://pro.panacea24@gmail.com:hphkmicxcabivyao@smtp.gmail.com:587');
+
+        // Inject the transport into the mailer
+        $this->mailer = new Mailer($transport);
+    }
+
+    #[Route('/index', name: 'app_consultation_index', methods: ['GET'])]
     public function index(ConsultationRepository $consultationRepository): Response
     {
         return $this->render('consultation/index.html.twig', [
@@ -29,6 +48,35 @@ class ConsultationController extends AbstractController
     {
         return $this->render('consultation/frontindex.html.twig', [
             'consultations' => $consultationRepository->findBy(['Client' => $client]),
+        ]);
+    }
+
+    #[Route('/confirm/{id}', name: 'app_consultation_confirm', methods: ['GET'])]
+    public function confirm(Consultation $consultation, ConsultationRepository $consultationRepository,EntityManagerInterface $entityManager): Response
+    {
+        if ($consultation->getStatus() == "En Attente") {
+            $consultation->setStatus("Confirmée");
+            $this->sendConfirmEmail($consultation);
+        }else {
+            $consultation->setStatus("En Attente");
+            $this->sendCancelEmail($consultation);
+        }
+
+        $entityManager->flush();
+        return $this->render('consultation/index.html.twig', [
+            'consultations' => $consultationRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/refuse/{id}', name: 'app_consultation_refuse', methods: ['GET'])]
+    public function refuse(Consultation $consultation, ConsultationRepository $consultationRepository,EntityManagerInterface $entityManager): Response
+    {
+            $consultation->setStatus("Refusée");
+            $this->sendRefuseEmail($consultation);
+
+        $entityManager->flush();
+        return $this->render('consultation/index.html.twig', [
+            'consultations' => $consultationRepository->findAll(),
         ]);
     }
 
@@ -45,6 +93,7 @@ class ConsultationController extends AbstractController
             $consultation->setPrix(70);
             $consultation->setMedecin($medecin);
             $consultation->setClient($client);
+            $consultation->setStatus("En Attente");
             $entityManager->persist($consultation);
             $entityManager->flush();
 
@@ -92,5 +141,71 @@ class ConsultationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_consultation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function sendConfirmEmail(Consultation $cons)
+    {
+        $formattedDate = $cons->getDate()->format('d/m/Y H:i');
+        $email = (new TemplatedEmail())
+            ->from('pro.panacea24@gmail.com')
+            ->to($cons->getClient()->getEmail())
+            ->subject('Confirmation de la consultation')
+            ->htmlTemplate('email/emailConfirmation.html.twig')
+            ->context([
+                'ClientName' => $cons->getClient()->getPrenom().' '.$cons->getClient()->getNom(),
+                'MedecinName' => $cons->getMedecin()->getPrenom().' '.$cons->getMedecin()->getNom(),
+                'ConsDate' => $formattedDate,
+                'ConsPrix' => $cons->getPrix().' TND',
+            ]);
+            $loader = new FilesystemLoader(__DIR__.'/../../templates');
+            $twigEnv = new Environment($loader);
+            $twigBodyRenderer = new BodyRenderer($twigEnv);
+            $twigBodyRenderer->render($email);
+
+        $this->mailer->send($email);
+    }
+
+    private function sendCancelEmail(Consultation $cons)
+    {
+        $formattedDate = $cons->getDate()->format('d/m/Y H:i');
+        $email = (new TemplatedEmail())
+            ->from('pro.panacea24@gmail.com')
+            ->to($cons->getClient()->getEmail())
+            ->subject('Annulation de la consultation')
+            ->htmlTemplate('email/emailAnnulation.html.twig')
+            ->context([
+                'ClientName' => $cons->getClient()->getPrenom().' '.$cons->getClient()->getNom(),
+                'MedecinName' => $cons->getMedecin()->getPrenom().' '.$cons->getMedecin()->getNom(),
+                'ConsDate' => $formattedDate,
+                'ConsPrix' => $cons->getPrix().' TND',
+            ]);
+            $loader = new FilesystemLoader(__DIR__.'/../../templates');
+            $twigEnv = new Environment($loader);
+            $twigBodyRenderer = new BodyRenderer($twigEnv);
+            $twigBodyRenderer->render($email);
+
+        $this->mailer->send($email);
+    }
+
+    private function sendRefuseEmail(Consultation $cons)
+    {
+        $formattedDate = $cons->getDate()->format('d/m/Y H:i');
+        $email = (new TemplatedEmail())
+            ->from('pro.panacea24@gmail.com')
+            ->to($cons->getClient()->getEmail())
+            ->subject('Refus de la consultation')
+            ->htmlTemplate('email/emailRefuse.html.twig')
+            ->context([
+                'ClientName' => $cons->getClient()->getPrenom().' '.$cons->getClient()->getNom(),
+                'MedecinName' => $cons->getMedecin()->getPrenom().' '.$cons->getMedecin()->getNom(),
+                'ConsDate' => $formattedDate,
+                'ConsPrix' => $cons->getPrix().' TND',
+            ]);
+            $loader = new FilesystemLoader(__DIR__.'/../../templates');
+            $twigEnv = new Environment($loader);
+            $twigBodyRenderer = new BodyRenderer($twigEnv);
+            $twigBodyRenderer->render($email);
+
+        $this->mailer->send($email);
     }
 }

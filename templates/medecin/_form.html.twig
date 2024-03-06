@@ -77,31 +77,29 @@
     </tr>
     <tr>
         <td>
-            <form class="styled-form" action="" method="POST">
+            {{ form_start(form,{'attr' : {'class' : 'styled-form','novalidate' : 'novalidate' }}) }}
                 <div class="form-group">
-                    <label for="nom">Nom :</label>
-                    <input type="text" id="nom" name="nom">
+                    {{form_label(form.nom,'Nom :')}}
+                    {{form_widget(form.nom)}}
+                    {{form_errors(form.nom)}}
                 </div>
                 <div class="form-group">
-                    <label for="prenom">Prénom :</label>
-                    <input type="text" id="prenom" name="prenom">
+                    {{form_label(form.prenom,'Prénom :')}}
+                    {{form_widget(form.prenom)}}
+                    {{form_errors(form.prenom)}}
                 </div>
                 <div class="form-group">
-                    <label for="specialite">Spécialité :</label>
-                    <select id="specialite" name="specialite">
-                        <option value="Cardiologie">Cardiologie</option>
-                        <option value="Pédiatrie">Pédiatrie</option>
-                        <option value="Gynécologie">Gynécologie</option>
-                        <option value="Neurologie">Neurologie</option>
-                        <option value="Dermatologie">Dermatologie</option>
-                    </select>
+                    {{form_label(form.specialite,'Specialité :')}}
+                    {{form_widget(form.specialite)}}
+                    {{form_errors(form.specialite)}}
                 </div>
                 <div class="form-group">
-                    <label for="email">Email :</label>
-                    <input type="email" id="email" name="email">
+                    {{form_label(form.email,'Email :')}}
+                    {{form_widget(form.email)}}
+                    {{form_errors(form.email)}}
                 </div>
                 <button type="submit">Enregistrer</button>
-            </form>
+            {{ form_end(form) }}
         </td>
         <td class="map-icon"></td> <!-- Icône de la carte -->
     </tr>

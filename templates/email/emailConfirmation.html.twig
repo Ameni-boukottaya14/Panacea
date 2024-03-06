@@ -1,0 +1,42 @@
+{% extends 'email/emailBase.html.twig' %}
+
+{% block content %}
+    <row class="welcome">
+        <columns>
+            <spacer size="35"></spacer>
+            <h1>
+                <center>
+                    Hello {{ ClientName }}!
+                </center>
+            </h1>
+            <spacer size="10"></spacer>
+        </columns>
+    </row>
+    <spacer size="30"></spacer>
+    <row>
+        <columns>
+            <p>
+                Welcome to <strong>Panacea </strong>
+            </p>
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <p>
+                A propos votre consultation avec le médecin {{ MedecinName }}
+            </p>
+            <p>
+                Votre consultation a été accepté.
+            </p>
+            <p>
+                Details de la consultation :
+            </p>
+            <p>
+                Date et heure : {{ ConsDate }}
+            </p>
+            <p>
+                Prix de la consultation : {{ConsPrix}}
+            </p>
+        </columns>
+    </row>
+{% endblock %}
