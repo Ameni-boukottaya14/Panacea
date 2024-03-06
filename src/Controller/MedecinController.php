@@ -10,6 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Label\Font\NotoSans;
+
+
 
 #[Route('/medecin')]
 class MedecinController extends AbstractController
@@ -25,8 +35,32 @@ class MedecinController extends AbstractController
     #[Route('/list', name: 'app_medecin_list', methods: ['GET'])]
     public function list(MedecinRepository $medecinRepository): Response
     {
+        $medecins = $medecinRepository->findAll();
+        
+        $writer = new PngWriter(); // Instantiate the PngWriter class
+        
+        foreach ($medecins as $medecin) {
+            $content = sprintf(
+                "ID: %d, Nom: %s, Prénom: %s, Spécialité: %s, Email: %s",
+                $medecin->getId(),
+                $medecin->getNom(),
+                $medecin->getPrenom(),
+                $medecin->getSpecialite(),
+                $medecin->getEmail()
+            );
+            
+            $qrCode = QrCode::create($content)
+                ->setEncoding(new Encoding('UTF-8'))
+                ->setSize(120)
+                ->setMargin(0)
+                ->setForegroundColor(new Color(0, 0, 0))
+                ->setBackgroundColor(new Color(255, 255, 255));
+            
+            $medecin->qrCode = $writer->write($qrCode)->getDataUri();
+        }
+        
         return $this->render('medecin/frontindex.html.twig', [
-            'medecins' => $medecinRepository->findAll(),
+            'medecins' => $medecins,
         ]);
     }
 
