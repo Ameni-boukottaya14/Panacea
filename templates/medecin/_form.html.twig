@@ -1,26 +1,111 @@
-{{ form_start(form,{'attr' : {'novalidate' : 'novalidate'}}) }}
-    <div class="form-group">
-    {{ form_label(form.nom,"Nom") }}
-    {{ form_widget(form.nom) }}
-    {{ form_errors(form.nom) }}
-    </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire dans un tableau vertical</title>
+    <style>
+        /* Style pour le tableau */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #007bff; /* Contour de tableau bleu */
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .styled-table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .styled-table tr:last-child td {
+            border-bottom: none;
+        }
+        /* Style pour le formulaire */
+        .styled-form {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #007bff; /* Contour de formulaire bleu */
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .styled-form .form-group {
+            margin-bottom: 20px;
+        }
+        .styled-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .styled-form input[type="text"],
+        .styled-form input[type="email"],
+        .styled-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .styled-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .map-icon {
+            background-image: url('https://maps.gstatic.com/tactile/pane/default_geocode-1x.png');
+            width: 24px;
+            height: 24px;
+            background-size: cover;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
 
-    <div class="form-group">
-    {{ form_label(form.prenom,"Prénom") }}
-    {{ form_widget(form.prenom) }}
-    {{ form_errors(form.prenom) }}
-    </div>
+<table class="styled-table">
+    <tr>
+        <th colspan="2">Informations</th>
+    </tr>
+    <tr>
+        <td>
+            <form class="styled-form" action="" method="POST">
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom">
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom">
+                </div>
+                <div class="form-group">
+                    <label for="specialite">Spécialité :</label>
+                    <select id="specialite" name="specialite">
+                        <option value="Cardiologie">Cardiologie</option>
+                        <option value="Pédiatrie">Pédiatrie</option>
+                        <option value="Gynécologie">Gynécologie</option>
+                        <option value="Neurologie">Neurologie</option>
+                        <option value="Dermatologie">Dermatologie</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <button type="submit">Enregistrer</button>
+            </form>
+        </td>
+        <td class="map-icon"></td> <!-- Icône de la carte -->
+    </tr>
+</table>
 
-    <div class="form-group">
-    {{ form_label(form.specialite,"Spécialité") }}
-    {{ form_widget(form.specialite) }}
-    {{ form_errors(form.specialite) }}
-    </div>
-
-    <div class="form-group">
-    {{ form_label(form.email,"Email") }}
-    {{ form_widget(form.email) }}
-    {{ form_errors(form.email) }}
-    </div>
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+</body>
+</html>

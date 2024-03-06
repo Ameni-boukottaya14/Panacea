@@ -6,7 +6,7 @@ use App\Entity\Medecin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType; // Corrected import
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
@@ -19,37 +19,39 @@ class MedecinType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'constraints' => [
-                    new NotBlank(['message' => 'Le nom est obligatoire']), // Corrected syntax
+                    new NotBlank(['message' => 'Le nom est obligatoire']),
                 ],
                 'attr' => [
-                    'class' => 'search-form input',
+                    'class' => 'styled-form-field',
                 ]
             ])
             ->add('prenom', TextType::class, [
                 'constraints' => [
-                    new NotBlank(['message' => 'Le prénom est obligatoire']), // Corrected syntax
+                    new NotBlank(['message' => 'Le prénom est obligatoire']),
                 ],
                 'attr' => [
-                    'class' => 'search-form input',
+                    'class' => 'styled-form-field',
                 ]
             ])
             ->add('specialite', ChoiceType::class, [
                 'choices' => [
-                    'Généraliste' => 'Généraliste',
-                    'Dentiste' => 'Dentiste',
-                    'Cardiologue' => 'Cardiologue',
+                    'Cardiologie' => 'Cardiologie',
+                    'Pédiatrie' => 'Pédiatrie',
+                    'Gynécologie' => 'Gynécologie',
+                    'Neurologie' => 'Neurologie',
+                    'Dermatologie' => 'Dermatologie',
                 ],
                 'attr' => [
-                    'class' => 'search-form input',
+                    'class' => 'styled-form-field',
                 ]
             ])
             ->add('email', EmailType::class, [
                 'constraints' => [
-                    new NotBlank(message:"L'Email est obligatoire"),
-                    new Email(['message' => 'Email is not valid.']) // Corrected syntax
+                    new NotBlank(['message' => 'L\'email est obligatoire']),
+                    new Email(['message' => 'Email non valide.'])
                 ],
                 'attr' => [
-                    'class' => 'search-form input',
+                    'class' => 'styled-form-field',
                 ]
             ])
         ;

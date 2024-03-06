@@ -2,18 +2,51 @@
 
 {% block title %}Medecin index{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Style pour le tableau */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #007bff; /* Contour de tableau bleu */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Ombre douce */
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0; /* Ligne séparatrice */
+        }
+        .styled-table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .styled-table tr:last-child td {
+            border-bottom: none;
+        }
+        .styled-table tbody tr:hover {
+            background-color: #f8f8f8; /* Couleur de survol */
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <h1>Medecin index</h1>
 
-    <table class="table">
+    <table class="styled-table table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>Specialite</th>
+                <th>Prénom</th>
+                <th>Spécialité</th>
                 <th>Email</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,17 +58,17 @@
                 <td>{{ medecin.specialite }}</td>
                 <td>{{ medecin.email }}</td>
                 <td>
-                    <a href="{{ path('app_medecin_show', {'id': medecin.id}) }}">show</a>
-                    <a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}">edit</a>
+                    <a href="{{ path('app_medecin_show', {'id': medecin.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_medecin_new') }}">Create new</a>
+    <a href="{{ path('app_medecin_new') }}" class="btn btn-success">Créer un nouveau</a>
 {% endblock %}
