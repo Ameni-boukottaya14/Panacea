@@ -23,10 +23,28 @@ class PharmacieController extends AbstractController
     #[Route('/list', name: 'pharmacie_list')]
     public function list(PharmacieRepository $pharmacieRepository): Response
     {
+        // Fetch all pharmacies
+        $pharmacies = $pharmacieRepository->findAll();
+    
+        // Calculate pharmacies per address
+        $pharmaciesPerAddress = [];
+        foreach ($pharmacies as $pharmacy) {
+            $address = $pharmacy->getAdress();
+            if (!isset($pharmaciesPerAddress[$address])) {
+                $pharmaciesPerAddress[$address] = 1;
+            } else {
+                $pharmaciesPerAddress[$address]++;
+            }
+            
+        }
+        // Render the template with pharmacies and pharmaciesPerAddress
         return $this->render('pharmacie/listPharmacie.html.twig', [
-            'pharmacies' => $pharmacieRepository->findAll(),
+            'pharmacies' => $pharmacies,
+            'pharmaciesPerAddress' => $pharmaciesPerAddress,
         ]);
     }
+    
+
     #[Route('/pharmacie_front', name: 'pharmacie_front')]
     public function listPharmacie(PharmacieRepository $pharmacieRepository): Response
     {
@@ -86,4 +104,5 @@ class PharmacieController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('pharmacie_list');
     }
+  
 }

@@ -3,28 +3,17 @@
 {% block title %}List Ordonnances{% endblock %}
 
 {% block body %}
-<!-- Flash messages banner -->
-<div class="alert alert-dismissible fade show alert-success" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    {% for flashType, flashMessages in app.flashes %}
-        {% for flashMessage in flashMessages %}
-            {{ flashMessage }}
-        {% endfor %}
-    {% endfor %}
-</div>
-<!-- End Flash messages banner -->
-
 <section class="section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10 offset-lg-2"> <!-- Increase col size and offset -->
+            <div class="col-lg-10 offset-lg-2">
                 <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title text-center mb-4 text-success">Liste des Ordonnances</h5>
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
-                            <table class="table table-striped datatable" style="width: 100%;"> <!-- Set table width to 100% -->
-                                <thead>
+                            <table class="table table-striped datatable" style="width: 100%;">
+                                  <thead>
                                     <tr>
                                         <th class="text-success">ID</th>
                                         <th class="text-success">Nom du Malade</th>
@@ -60,10 +49,92 @@
                             </table>
                         </div>
                         <!-- End Table with stripped rows -->
+                        <!-- Button to generate PDF -->
+                        <div class="text-center mt-4">
+                            <button class="btn btn-success" onclick="generatePDF()">Générer PDF</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+function generatePDF() {
+    var printWindow = window.open('', '_blank');
+    var tableContent = document.querySelector('.table').cloneNode(true); // Clone the table element
+
+    // Remove the last column (Action column) only for PDF
+    var rows = tableContent.querySelectorAll('tr');
+    for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName('td');
+        rows[i].deleteCell(cells.length - 1); // Remove the last cell (Action cell)
+    }
+
+    // Styling for PDF
+    var imageHTML = '<img src="{{ asset('img/plogo.png') }}" alt="Troc-express" style="width: 100px; margin-bottom: 20px;">';
+    var headerHTML = '<div style="text-align: center; margin-bottom: 20px;"><h2>Liste des Ordonnances</h2></div>';
+    var contentHTML = '<div style="margin-bottom: 20px;">' + tableContent.outerHTML + '</div>';
+
+    // Write content to the print window
+    printWindow.document.write('<html><head><title>Liste des Ordonnances</title><style>body { font-family: Arial, sans-serif; margin: 20px; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; } th { background-color: #f2f2f2; }</style></head><body>' + imageHTML + headerHTML + contentHTML + '</body></html>');
+
+    // Close the document and print
+    printWindow.document.close();
+    printWindow.print();
+}
+</script>
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bar Chart - Ordonnances per Pharmacy</h5>
+
+                        <!-- Bar Chart -->
+                        <canvas id="barChart" style="max-height: 400px;"></canvas>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                // Extract pharmacy names and ordonnance counts from PHP data
+                                const pharmacies = [];
+                                const ordonnanceCounts = [];
+                                {% for pharmacie, count in ordonnancesPerPharmacy %}
+                                    pharmacies.push("{{ pharmacie }}");
+                                    ordonnanceCounts.push({{ count }});
+                                {% endfor %}
+
+                                // Create Bar Chart
+                                new Chart(document.querySelector('#barChart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: pharmacies,
+                                        datasets: [{
+                                            label: 'Ordonnances per Pharmacy',
+                                            data: ordonnanceCounts,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgb(75, 192, 192)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <!-- End Bar Chart -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}

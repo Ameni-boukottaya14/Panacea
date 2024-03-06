@@ -6,18 +6,18 @@
 <section class="section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-11 offset-lg-3">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <h5 class="card-title text-center mb-4 text-success">Datatables</h5>
+                        <h5 class="card-title text-center mb-4 text-success">liste des pharmacies</h5>
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
-                            <table class="table table-striped datatable">
+                            <table class="table table-striped datatable" id="print-table" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th class="text-success">ID</th>
                                         <th class="text-success">Nom</th>
-                                        <th class="text-success">Adress</th>
+                                        <th class="text-success">Adresse</th>
                                         <th class="text-success">Numéro de téléphone</th>
                                         <th class="text-success">Adresse email</th>
                                         <th class="text-success">Action</th>
@@ -31,7 +31,7 @@
                                         <td class="text-black">{{ pharmacie.adress }}</td>
                                         <td class="text-black">{{ pharmacie.numTell }}</td>
                                         <td class="text-black">{{ pharmacie.adressEmail }}</td>
-                                        <td>
+                                         <td>
                                             <div class="btn-group" role="group" aria-label="Actions">
                                                 <a href="{{ path('pharmacie_edit', {id: pharmacie.id}) }}" class="btn btn-success" style="margin-right: 10px; padding-left: 15px; padding-right: 15px; border-radius: 20px;">Modifier</a>
                                                 <a href="{{ path('pharmacie_delete', {id: pharmacie.id}) }}" class="btn btn-danger" style="padding-left: 15px; padding-right: 15px; border-radius: 20px;">Supprimer</a>
@@ -43,6 +43,94 @@
                             </table>
                         </div>
                         <!-- End Table with stripped rows -->
+                        <!-- Button to generate PDF -->
+                        <div class="text-center mt-4">
+                            <button class="btn btn-success" onclick="printTable()">Générer PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function printTable() {
+        console.log('printTable() function called'); // Add this line
+
+        var printWindow = window.open('', '_blank');
+        var tableContent = document.getElementById('print-table').cloneNode(true); // Clone the table element
+
+        // Remove the last column (action column)
+        var rows = tableContent.querySelectorAll('tr');
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].deleteCell(-1); // Remove the last cell in each row
+        }
+
+        // Log the tableContent to check if it's as expected
+        console.log('Cloned table content:', tableContent.outerHTML); // Add this line
+
+        // Styling for PDF
+        var imageHTML = '<img src="{{ asset('img/plogo.png') }}" alt="Troc-express" style="width: 100px; margin-bottom: 20px;">';
+        var headerHTML = '<div style="text-align: center; margin-bottom: 20px;"><h2>Liste des pharmacies</h2></div>';
+        var contentHTML = '<div style="margin-bottom: 20px;">' + tableContent.outerHTML + '</div>';
+
+        // Write content to the print window
+        printWindow.document.write('<html><head><title>Liste des pharmacies</title><style>body { font-family: Arial, sans-serif; margin: 20px; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; } th { background-color: #f2f2f2; }</style></head><body>' + imageHTML + headerHTML + contentHTML + '</body></html>');
+
+        // Log the generated HTML in the print window
+        console.log('Generated HTML in print window:', printWindow.document.documentElement.outerHTML); // Add this line
+
+        // Close the document and print
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bar Chart - Pharmacies per Address</h5>
+
+                        <!-- Bar Chart -->
+                        <canvas id="barChart" style="max-height: 400px;"></canvas>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                // Extract addresses and pharmacy counts from PHP data
+                                const addresses = [];
+                                const pharmacyCounts = [];
+                                {% for address, count in pharmaciesPerAddress %}
+                                    addresses.push("{{ address }}");
+                                    pharmacyCounts.push({{ count }});
+                                {% endfor %}
+
+                                // Create Bar Chart
+                                new Chart(document.querySelector('#barChart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: addresses,
+                                        datasets: [{
+                                            label: 'Pharmacies per Address',
+                                            data: pharmacyCounts,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgb(75, 192, 192)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <!-- End Bar Chart -->
                     </div>
                 </div>
             </div>

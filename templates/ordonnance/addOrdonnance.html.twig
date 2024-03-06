@@ -9,15 +9,6 @@
       <div class="card shadow" style="background-color: white;">
         <div class="card-body">
           <h1 class="card-title text-center text-success">Ajouter une ordonnance</h1>
-          <!-- Flash messages banner -->
-          <div class="alert alert-dismissible fade show alert-success" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            {% for flashType, flashMessages in app.flashes %}
-              {% for flashMessage in flashMessages %}
-                {{ flashMessage }}
-              {% endfor %}
-            {% endfor %}
-          </div>
           {{ form_start(form) }}
           <div class="mb-3">
             {{ form_label(form.nomMalade, 'Nom du malade', {'label_attr': {'class': 'form-label'}}) }}

@@ -19,7 +19,7 @@ class Pharmacie
     #[ORM\Column(length: 20)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 100)]
     private ?string $adress = null;
 
     #[ORM\Column(nullable: true)]
@@ -122,4 +122,7 @@ class Pharmacie
     {
         return $this->nom; // Assuming "nom" is a property that represents the name of the pharmacy
     }
+  
+
+
 }

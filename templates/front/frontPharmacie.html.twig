@@ -8,7 +8,7 @@
                 <div class="col-lg-3 col-md-3 col-12">
                     <!-- Start Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                       <a href="index.html"><img src="{{ asset('img/panacealogo.png') }}"></a>
                     </div>
                     <!-- End Logo -->
                     <!-- Mobile Nav -->
@@ -37,7 +37,6 @@
                                 <a href="#" class="btn">Connexion</a>
                             </div>
                         </div>
-
                     </div>
                     <!-- End Main Menu and Buttons -->
                 </div>
@@ -45,6 +44,8 @@
         </div>
     </div>
 </div>
+<!-- End Header Inner -->
+
 <!-- Table des pharmacies -->
 <section class="pharmacy-table section">
     <div class="container">
@@ -62,10 +63,10 @@
             <!-- Pharmacie Unique -->
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="pharmacy-card" style="border: 2px solid #5DADE2;margin-bottom: 20px;">
-             <!-- En-tête de la pharmacie -->
-<div class="card-header" style="background-color: #5DADE2; color: white; text-align: center;">
-    <h4 class="title">{{ pharmacy.getNom() }}</h4>
-</div>
+                    <!-- En-tête de la pharmacie -->
+                    <div class="card-header" style="background-color: #5DADE2; color: white; text-align: center;">
+                        <h4 class="title">{{ pharmacy.getNom() }}</h4>
+                    </div>
 
                     <!-- Détails de la pharmacie -->
                     <div class="card-body">
@@ -76,6 +77,8 @@
                         <p class="attribute-label" style="font-size: 18px;"><strong>Email :</strong></p>
                         <p class="attribute-value" style="font-size: 16px;">{{ pharmacy.getAdressEmail() }}</p>
                     </div>
+
+                   
                 </div>
             </div>
             <!-- Fin Pharmacie Unique -->
@@ -84,30 +87,26 @@
     </div>
 </section>
 <!-- Fin Table des pharmacies -->
-{% block calltoaction %}	
-		<!-- Start Call to action -->
-		<section class="call-action overlay" data-stellar-background-ratio="0.5">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-12">
-						<div class="content">
-							<h2>Voulez vous consulter vos ordonnace fournis par notre assurance.</h2>
-<p>Veuillez cliquer sur "En savoir plus" pour accéder à votre historique d'ordonnances avec nos pharmacies partenaires.</p>
-							<div class="button">
-								
-                                <a href="{{ path('ordonnance_front') }}" class="btn second">En savoir plus<i class="fa fa-long-arrow-right"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!--/ End Call to action -->
-		{% endblock %}
 
-
-<!-- End Header Inner -->
-
+{% block calltoaction %}    
+<!-- Start Call to action -->
+<section class="call-action overlay" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="content">
+                    <h2>Voulez vous consulter vos ordonnace fournis par notre assurance.</h2>
+                    <p>Veuillez cliquer sur "En savoir plus" pour accéder à votre historique d'ordonnances avec nos pharmacies partenaires.</p>
+                    <div class="button">
+                        <a href="{{ path('ordonnance_front') }}" class="btn second">En savoir plus<i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Call to action -->
+{% endblock %}
 
 {% endblock %}
 {% block continue %}

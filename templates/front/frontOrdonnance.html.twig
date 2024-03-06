@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+
 {% block headerinner %}
 <!-- Header Inner -->
 <div class="header-inner">
@@ -8,7 +9,7 @@
                 <div class="col-lg-3 col-md-3 col-12">
                     <!-- Start Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="{{ asset('img/logo.png') }}" alt="#"></a>
+                        <a href="index.html"><img src="{{ asset('img/panacealogo.png') }}"></a>
                     </div>
                     <!-- End Logo -->
                     <!-- Mobile Nav -->
@@ -26,7 +27,7 @@
                                         <li><a href="#">Médecins</a></li>
                                         <li><a href="#">Hôpitaux</a></li>
                                         <li><a href="#">Laboratoires</a></li>
-                                        <li class="active"><a href="{{ path('pharmacie_front') }}">Pharmacie</a></li>
+                                        <li class="#"><a href="{{ path('pharmacie_front') }}">Pharmacie</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -37,7 +38,6 @@
                                 <a href="#" class="btn">Connexion</a>
                             </div>
                         </div>
-
                     </div>
                     <!-- End Main Menu and Buttons -->
                 </div>
@@ -45,7 +45,9 @@
         </div>
     </div>
 </div>
+
 <!-- Table des ordonnances -->
+
 <section class="ordonnance-table section">
     <div class="container">
         <div class="row">
@@ -62,11 +64,10 @@
             <!-- Ordonnance Unique -->
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="ordonnance-card" style="border: 2px solid #5DADE2;margin-bottom: 20px;">
-                   <!-- En-tête de l'ordonnance -->
-<div class="card-header" style="background-color: #5DADE2; color: white; text-align: center;">
-    <h4 class="title">{{ ordonnance.getNomMalade() ~ ' ' ~ ordonnance.getPrenomMalade() }}</h4>
-</div>
-
+                    <!-- En-tête de l'ordonnance -->
+                    <div class="card-header" style="background-color: #5DADE2; color: white; text-align: center;">
+                        <h4 class="title">{{ ordonnance.getNomMalade() ~ ' ' ~ ordonnance.getPrenomMalade() }}</h4>
+                    </div>
                     <!-- Détails de l'ordonnance -->
                     <div class="card-body">
                         <p class="attribute-label" style="font-size: 18px;"><strong>Date :</strong></p>
@@ -77,9 +78,10 @@
                         <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getPharmacie().getNom() }}</p>
                         <p class="attribute-label" style="font-size: 18px;"><strong>Médicaments :</strong></p>
                         <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getMedicaments() }}</p>
-                        
                         <p class="attribute-label" style="font-size: 18px;"><strong>Médecin traitant :</strong></p>
                         <p class="attribute-value" style="font-size: 16px;">{{ ordonnance.getMedecinTraitant() }}</p>
+                        <!-- Display the QR code for this ordonnance -->
+                        <img src="{{ qrCodes[loop.index0] }}" alt="QR Code">
                     </div>
                 </div>
             </div>
@@ -92,11 +94,7 @@
 
 {% block calltoaction %}    
       
-        {% endblock %}
-
-
-<!-- End Header Inner -->
-
+{% endblock %}
 
 {% endblock %}
 {% block continue %}

@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+# routes.yaml or routes.yaml
+ordonnance_front:
+    path: /ordonnance_front
+    controller: App\Controller\OrdonnanceController::listOrdonnance
+    methods: [GET]
